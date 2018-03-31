@@ -64,6 +64,8 @@
 #include "RTT1.h"
 #include "XF1.h"
 #include "MCUC1.h"
+#include "AS1.h"
+#include "ASerialLdd1.h"
 
 #ifdef __cplusplus
 extern "C" {

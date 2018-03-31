@@ -64,6 +64,8 @@
 
 //typedefs
 
+//global var
+uint8_t msg[MAX_MSG_SIZE];
 
 /*! \brief Serial driver initialization */
 void SHELL_Init(void);
