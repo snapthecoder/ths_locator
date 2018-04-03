@@ -1,4 +1,10 @@
 /*
+ * nano.c
+ *
+ *  Created on: 03.04.2018
+ *      Author: Dominic
+ */
+/*
   * Shell.c
  *
  *  Created on: 04.08.2011
@@ -6,21 +12,12 @@
  */
 
 #include "Platform.h"
-#include "Application.h"
-#include "FRTOS1.h"
-#include "Shell.h"
-#include "CLS1.h"
-#include "FAT1.h"
-#include "TmDt1.h"
-#include "KIN1.h"
 #include "AS1.h"
+#include "nano.h"
+#include "RTT1.h"
+#include "TMOUT1.h"
 
-#include "Nano6e.h"
-
-#if PL_CONFIG_HAS_SEGGER_RTT
-  #include "RTT1.h"
-#endif
-
+uint8_t _headnano = 0;
 
 void NanoInit(void){
 
@@ -365,26 +362,26 @@ bool nanoCheck()
     AS1_RecvChar(&incomingData);
 
     //Wait for header byte
-    if (_head == 0 && incomingData != 0xFF)
+    if (_headnano == 0 && incomingData != 0xFF)
     {
       //Do nothing. Ignore this byte because we need a start byte
     }
     else
     {
       //Load this value into the array
-      msg[_head++] = incomingData;
+      msg[_headnano++] = incomingData;
 
-      _head %= MAX_MSG_SIZE; //Wrap variable
+      _headnano %= MAX_MSG_SIZE; //Wrap variable
 
-      if ((_head > 0) && (_head == msg[1] + 7))
+      if ((_headnano > 0) && (_headnano == msg[1] + 7))
       {
         //We've got a complete sentence!
 
         //Erase the remainder of the array
-        for (uint8_t x = _head ; x < MAX_MSG_SIZE ; x++)
+        for (uint8_t x = _headnano ; x < MAX_MSG_SIZE ; x++)
           msg[x] = 0;
 
-        _head = 0; //Reset
+        _headnano = 0; //Reset
 
 		//Used for debugging: Does the user want us to print the command to serial port?
 		// DEGBUG PRINT
@@ -429,11 +426,22 @@ bool nanoCheck()
 
     //Remove anything in the incoming buffer
     //TODO this is a bad idea if we are constantly readings tags
-    while (AS1_GetCharsInTxBuf() != 0) AS1_RecvChar(0);
+    //while (AS1_GetCharsInTxBuf() != 0) AS1_RecvChar(0);
 
     //Send the command to the module
-    for (uint8_t x = 0 ; x < messageLength + 5 ; x++)
+
+    //use sendblock
+/*    uint16_t snt;
+    uint16_t length = (messageLength +5);
+
+    if (AS1_SendBlock(&msg[0], length, &snt) != ERR_OK) {
+        return;
+    }
+*/
+    for (uint8_t x = 0 ; x < (messageLength + 5) ; x++){
+    	WAIT1_Waitus(100);
     	AS1_SendChar(msg[x]);
+    }
 
     //There are some commands (setBaud) that we can't or don't want the response
     if (waitForResponse == 0)
@@ -622,6 +630,8 @@ bool nanoCheck()
     }
 
   }
+
+
 
 
 

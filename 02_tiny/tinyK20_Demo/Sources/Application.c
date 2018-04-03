@@ -12,6 +12,8 @@
 #include "FRTOS1.h"
 #include "CDC1.h"
 #include "Shell.h"
+#include "Nano6e.h"
+
 #if PL_USE_HW_RTC
   #include "RTC1.h"
 #endif
@@ -33,14 +35,6 @@ void APP_Run(void) {
     for(;;){} /* error! probably out of memory */
   }
 #endif
-
-#if PL_HAS_RFID_READER_NANO6e
-  if (xTaskCreate(nano_task, "Nano", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL) != pdPASS){
-	  for(;;){}/* error! probably out of memory */
-  }
-#endif
-
-
   //start the FreeRTOS Scheduler
   vTaskStartScheduler();
 }

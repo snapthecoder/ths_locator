@@ -1,13 +1,12 @@
 /*
- * Shell.h
+ * nano.h
  *
- *  Created on: 23.05.2011
- *      Author: Erich Styger
+ *  Created on: 03.04.2018
+ *      Author: Dominic
  */
 
-#ifndef SHELL_H_
-#define SHELL_H_
-#endif
+#ifndef SOURCES_NANO_H_
+#define SOURCES_NANO_H_
 
 #define MAX_MSG_SIZE 255
 
@@ -63,7 +62,7 @@
 #define REGION_OPEN         0xFF
 
 //typedefs
-uint8_t _head = 0;
+//uint8_t _headnano = 0;
 
 /*! \brief Serial driver initialization */
 uint8_t msg[MAX_MSG_SIZE];
@@ -98,14 +97,4 @@ void sendCommand(uint16_t timeOut, bool waitForResponse);
 uint16_t calculateCRC(uint8_t *u8Buf, uint8_t len);
 uint8_t parseResponse(void);
 
-
-
-
-
-
-
-
-
-
-
-
+#endif /* SOURCES_NANO_H_ */
