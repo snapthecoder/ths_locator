@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P48M50SF0RM Rev. 1, Oct 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-04, 13:18, # CodeGen: 13
+**     Date/Time   : 2018-04-04, 20:08, # CodeGen: 16
 **     Abstract    :
 **
 **     Settings    :
@@ -309,6 +309,8 @@
 #include "XF1.h"
 #include "CS1.h"
 #include "TMOUT1.h"
+#include "AS2.h"
+#include "ASerialLdd2.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -531,6 +533,8 @@ void PE_low_level_init(void)
   CLS1_Init(); /* initialize shell */
   /* ### Timeout "TMOUT1" init code ... */
   TMOUT1_Init();
+  /* ### Asynchro serial "AS2" init code ... */
+  AS2_Init();
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

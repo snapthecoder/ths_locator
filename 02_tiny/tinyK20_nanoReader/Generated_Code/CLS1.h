@@ -7,14 +7,14 @@
 **     Version     : Component 01.095, Driver 01.00, CPU db: 3.00.000
 **     Repository  : My Components
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-04, 13:18, # CodeGen: 13
+**     Date/Time   : 2018-04-04, 20:01, # CodeGen: 15
 **     Abstract    :
 **
 **     Settings    :
 **          Component name                                 : CLS1
 **          Echo                                           : no
 **          Prompt                                         : "CMD> "
-**          Project Name                                   : My Project Name
+**          Project Name                                   : THS GATE
 **          Silent Mode Prefix                             : #
 **          Buffer Size                                    : 48
 **          Blocking Send                                  : Enabled

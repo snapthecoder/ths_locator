@@ -8,6 +8,8 @@
 #ifndef SOURCES_NANO_H_
 #define SOURCES_NANO_H_
 
+#include "CLS1.h"
+
 #define MAX_MSG_SIZE 255
 
 #define TMR_SR_OPCODE_VERSION 0x03
@@ -61,12 +63,8 @@
 #define REGION_NORTHAMERICA 0x0D
 #define REGION_OPEN         0xFF
 
-//typedefs
-//uint8_t _headnano = 0;
 
-/*! \brief Serial driver initialization */
-uint8_t msg[MAX_MSG_SIZE];
-
+//Declare Methods
 void NanoInit(void);
 void nanoSetBaud(long baudRate);
 
@@ -101,10 +99,10 @@ uint8_t getTagDataBytes(void);
 uint8_t getTagEPCBytes(void);
 bool nanoCheck(void);
 
-#include "CLS1.h"
-
 void nanoPrintStatus(void);
-
 static void Serial_println(const char *msg);
+
+uint8_t NANO_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_StdIOType *io);
+
 
 #endif /* SOURCES_NANO_H_ */

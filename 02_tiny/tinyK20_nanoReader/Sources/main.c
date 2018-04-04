@@ -48,8 +48,11 @@
 #include "XF1.h"
 #include "CS1.h"
 #include "TMOUT1.h"
+#include "AS2.h"
+#include "ASerialLdd2.h"
 #include "nano.h"
 #include "CLS1.h"
+#include "Shell.h"
 
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
@@ -67,29 +70,18 @@ int main(void)
 
   /* Write your code here */
   /* For example: for(;;) { } */
-  nanoStartReading();
-  WAIT1_Waitms(100);
 
-  for(;;){
-
-	  if(nanoCheck() == 1){
-		  uint8_t responseType = parseResponse();
-
-		  if(responseType == RESPONSE_IS_KEEPALIVE){
-			  //scanning
-		  }
-		  else if(responseType == RESPONSE_IS_TAGFOUND){
-			  nanoPrintStatus();
-		  }
-  	  }
+  //wait after power-on
+  WAIT1_Waitms(1000);
+  //blink led, means startup sucessfull
+  for(int x=0;x<5;x++){
+  	  LED1_Neg();
+  	  WAIT1_Waitms(500);
   }
 
-  nanoStopReading();
 
-  for(;;){
-	  LED1_Neg();
-	  WAIT1_Waitms(500);
-  }
+  APP_Start();
+
 
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/

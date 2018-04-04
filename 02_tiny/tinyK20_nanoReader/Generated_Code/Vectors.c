@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-04, 13:12, # CodeGen: 12
+**     Date/Time   : 2018-04-04, 20:11, # CodeGen: 18
 **     Abstract    :
 **
 **     Settings    :
@@ -68,6 +68,8 @@
   #include "XF1.h"
   #include "CS1.h"
   #include "TMOUT1.h"
+  #include "AS2.h"
+  #include "ASerialLdd2.h"
   #include "Events.h"
 
 
@@ -123,8 +125,8 @@
     (tIsrFunc)&ASerialLdd1_Interrupt,  /* 0x21  0x00000084   8   ivINT_UART0_ERR               used by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x22  0x00000088   -   ivINT_UART1_RX_TX             unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x23  0x0000008C   -   ivINT_UART1_ERR               unused by PE */
-    (tIsrFunc)&Cpu_Interrupt,          /* 0x24  0x00000090   -   ivINT_UART2_RX_TX             unused by PE */
-    (tIsrFunc)&Cpu_Interrupt,          /* 0x25  0x00000094   -   ivINT_UART2_ERR               unused by PE */
+    (tIsrFunc)&ASerialLdd2_Interrupt,  /* 0x24  0x00000090   8   ivINT_UART2_RX_TX             used by PE */
+    (tIsrFunc)&ASerialLdd2_Interrupt,  /* 0x25  0x00000094   8   ivINT_UART2_ERR               used by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x26  0x00000098   -   ivINT_ADC0                    unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x27  0x0000009C   -   ivINT_CMP0                    unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x28  0x000000A0   -   ivINT_CMP1                    unused by PE */

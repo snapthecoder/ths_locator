@@ -19,7 +19,7 @@
         <Line>PE_Const</Line>
         <Line>IO_Map</Line>
       </GenSharedModules>
-      <ShrdHeaderAge0>1283685405</ShrdHeaderAge0>
+      <ShrdHeaderAge0>1283760394</ShrdHeaderAge0>
       <ShrdCodeAge0>-1</ShrdCodeAge0>
       <ShrdAsemblAge0>-1</ShrdAsemblAge0>
       <ShrdHeaderAge1>1283685405</ShrdHeaderAge1>
@@ -31,7 +31,7 @@
       <ShrdHeaderAge3>1283685405</ShrdHeaderAge3>
       <ShrdCodeAge3>-1</ShrdCodeAge3>
       <ShrdAsemblAge3>-1</ShrdAsemblAge3>
-      <GenExtraFiles lines_count="25">
+      <GenExtraFiles lines_count="26">
         <Line>Generated_Code\MCUC1config.h</Line>
         <Line>Documentation\doxygen\BitIoLdd1_component.txt</Line>
         <Line>Generated_Code\LED1config.h</Line>
@@ -48,6 +48,7 @@
         <Line>Generated_Code\CS1config.h</Line>
         <Line>Generated_Code\CLS1config.h</Line>
         <Line>Generated_Code\TMOUT1config.h</Line>
+        <Line>Documentation\doxygen\ASerialLdd2_component.txt</Line>
         <Line>Documentation\doxygen\tinyK20_nanoReader_project.txt</Line>
         <Line>Documentation\doxygen\RoutingReport_component.txt</Line>
         <Line>Documentation\doxygen\pex.doxyfile</Line>
@@ -58,8 +59,8 @@
         <Line>Project_Settings\Startup_Code\startup.c</Line>
         <Line>Generated_Code\Vectors.c</Line>
       </GenExtraFiles>
-      <GenExtraFileSrcDir23>lib\Kinetis\startup\</GenExtraFileSrcDir23>
-      <GenExtraFileSrcDir19>Repositories\lib\doxygen\</GenExtraFileSrcDir19>
+      <GenExtraFileSrcDir24>lib\Kinetis\startup\</GenExtraFileSrcDir24>
+      <GenExtraFileSrcDir20>Repositories\lib\doxygen\</GenExtraFileSrcDir20>
       <XtraAge0>1283685405</XtraAge0>
       <XtraAge2>1283685405</XtraAge2>
       <XtraAge4>1283685405</XtraAge4>
@@ -74,16 +75,17 @@
       <XtraAge13>1283685405</XtraAge13>
       <XtraAge14>1283746377</XtraAge14>
       <XtraAge15>1283685676</XtraAge15>
-      <XtraAge20>1283685405</XtraAge20>
-      <XtraAge21>1283685676</XtraAge21>
-      <XtraAge23>1283685143</XtraAge23>
-      <XtraAge24>1283746184</XtraAge24>
-      <GenExtraFileType24>4</GenExtraFileType24>
-      <GenExtraFileType23>5</GenExtraFileType23>
+      <XtraAge21>1283760394</XtraAge21>
+      <XtraAge22>1283760394</XtraAge22>
+      <XtraAge24>1283685143</XtraAge24>
+      <XtraAge25>1283760490</XtraAge25>
+      <GenExtraFileType25>4</GenExtraFileType25>
+      <GenExtraFileType24>5</GenExtraFileType24>
+      <GenExtraFileType23>4</GenExtraFileType23>
       <GenExtraFileType22>4</GenExtraFileType22>
       <GenExtraFileType21>4</GenExtraFileType21>
-      <GenExtraFileType20>4</GenExtraFileType20>
-      <GenExtraFileType19>5</GenExtraFileType19>
+      <GenExtraFileType20>5</GenExtraFileType20>
+      <GenExtraFileType19>4</GenExtraFileType19>
       <GenExtraFileType18>4</GenExtraFileType18>
       <GenExtraFileType17>4</GenExtraFileType17>
       <GenExtraFileType16>4</GenExtraFileType16>
@@ -377,7 +379,12 @@
       <GenEventModules lines_count="1">
         <Line>Events</Line>
       </GenEventModules>
-      <GenMethodsInEvents lines_count="6">
+      <GenMethodsInEvents lines_count="11">
+        <Line>AS2_OnError</Line>
+        <Line>AS2_OnRxChar</Line>
+        <Line>AS2_OnTxChar</Line>
+        <Line>AS2_OnFullRxBuf</Line>
+        <Line>AS2_OnFreeTxBuf</Line>
         <Line>AS1_OnError</Line>
         <Line>AS1_OnRxChar</Line>
         <Line>AS1_OnTxChar</Line>
@@ -385,9 +392,11 @@
         <Line>AS1_OnFreeTxBuf</Line>
         <Line>Cpu_OnNMIINT</Line>
       </GenMethodsInEvents>
-      <GenAllModules lines_count="19">
+      <GenAllModules lines_count="21">
         <Line>AS1</Line>
+        <Line>AS2</Line>
         <Line>ASerialLdd1</Line>
+        <Line>ASerialLdd2</Line>
         <Line>BitIoLdd1</Line>
         <Line>CLS1</Line>
         <Line>Cpu</Line>
@@ -407,7 +416,7 @@
         <Line>XF1</Line>
       </GenAllModules>
       <GenExternModules lines_count="0" />
-      <GenBeanModules lines_count="13">
+      <GenBeanModules lines_count="15">
         <Line>LED1</Line>
         <Line>LEDpin1</Line>
         <Line>BitIoLdd1</Line>
@@ -421,11 +430,13 @@
         <Line>XF1</Line>
         <Line>CS1</Line>
         <Line>TMOUT1</Line>
+        <Line>AS2</Line>
+        <Line>ASerialLdd2</Line>
       </GenBeanModules>
     </GenFiles>
     <SignalListFile>Documentation\tinyK20_nanoReader_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>12</ProjectModificationStamp>
+    <ProjectModificationStamp>15</ProjectModificationStamp>
   </Options>
   <CpuID_5>
     <Generated>true</Generated>
@@ -434,7 +445,7 @@
     <GenDriverVersion>01.04</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
     <HeaderAge>1283685405</HeaderAge>
-    <CodeAge>1283746377</CodeAge>
+    <CodeAge>1283760394</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>14</GenNumMethods>
     <SetClockConfiguration>false</SetClockConfiguration>
@@ -1822,8 +1833,8 @@
     <GenComponentVersion>01.095</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1283746377</HeaderAge>
-    <CodeAge>1283746377</CodeAge>
+    <HeaderAge>1283760181</HeaderAge>
+    <CodeAge>1283760181</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>33</GenNumMethods>
     <PrintPrompt>true</PrintPrompt>
@@ -3694,6 +3705,423 @@
     <GenExtraFilesCount>1</GenExtraFilesCount>
     <ExtraFile0>Generated_Code\TMOUT1config.h</ExtraFile0>
   </ComponentID_19>
+  <ComponentID_23>
+    <Generated>true</Generated>
+    <GenCompName>AS2</GenCompName>
+    <GenComponentVersion>02.611</GenComponentVersion>
+    <GenDriverVersion>01.01</GenDriverVersion>
+    <GenEventModule>Events</GenEventModule>
+    <HeaderAge>1283760490</HeaderAge>
+    <CodeAge>1283760490</CodeAge>
+    <AsemblAge>-1</AsemblAge>
+    <GenNumMethods>24</GenNumMethods>
+    <Enable>false</Enable>
+    <Disable>false</Disable>
+    <EnableEvent>false</EnableEvent>
+    <DisableEvent>false</DisableEvent>
+    <RecvChar>true</RecvChar>
+    <SendChar>true</SendChar>
+    <RecvBlock>true</RecvBlock>
+    <SendBlock>true</SendBlock>
+    <ClearRxBuf>true</ClearRxBuf>
+    <ClearTxBuf>true</ClearTxBuf>
+    <CharsInRxBuf>false</CharsInRxBuf>
+    <GetCharsInRxBuf>true</GetCharsInRxBuf>
+    <CharsInTxBuf>false</CharsInTxBuf>
+    <GetCharsInTxBuf>true</GetCharsInTxBuf>
+    <SetBaudRateMode>false</SetBaudRateMode>
+    <GetError>false</GetError>
+    <GetBreak>false</GetBreak>
+    <SetBreak>false</SetBreak>
+    <TurnTxOn>false</TurnTxOn>
+    <TurnTxOff>false</TurnTxOff>
+    <TurnRxOn>false</TurnRxOn>
+    <TurnRxOff>false</TurnRxOff>
+    <LoopMode>false</LoopMode>
+    <ConnectPin>false</ConnectPin>
+    <GenNumEvents>10</GenNumEvents>
+    <BeforeNewSpeed_Selected>0</BeforeNewSpeed_Selected>
+    <BeforeNewSpeed_Name>AS2_BeforeNewSpeed</BeforeNewSpeed_Name>
+    <BeforeNewSpeed_Priority>interrupts disabled</BeforeNewSpeed_Priority>
+    <AfterNewSpeed_Selected>0</AfterNewSpeed_Selected>
+    <AfterNewSpeed_Name>AS2_AfterNewSpeed</AfterNewSpeed_Name>
+    <AfterNewSpeed_Priority>interrupts disabled</AfterNewSpeed_Priority>
+    <OnError_Selected>3</OnError_Selected>
+    <OnError_Name>AS2_OnError</OnError_Name>
+    <OnError_Priority>same as interrupt</OnError_Priority>
+    <OnRxChar_Selected>3</OnRxChar_Selected>
+    <OnRxChar_Name>AS2_OnRxChar</OnRxChar_Name>
+    <OnRxChar_Priority>same as interrupt</OnRxChar_Priority>
+    <OnRxCharExt_Selected>1</OnRxCharExt_Selected>
+    <OnRxCharExt_Name>AS2_OnRxCharExt</OnRxCharExt_Name>
+    <OnRxCharExt_Priority>same as interrupt</OnRxCharExt_Priority>
+    <OnTxChar_Selected>3</OnTxChar_Selected>
+    <OnTxChar_Name>AS2_OnTxChar</OnTxChar_Name>
+    <OnTxChar_Priority>same as interrupt</OnTxChar_Priority>
+    <OnFullRxBuf_Selected>3</OnFullRxBuf_Selected>
+    <OnFullRxBuf_Name>AS2_OnFullRxBuf</OnFullRxBuf_Name>
+    <OnFullRxBuf_Priority>same as interrupt</OnFullRxBuf_Priority>
+    <OnFreeTxBuf_Selected>3</OnFreeTxBuf_Selected>
+    <OnFreeTxBuf_Name>AS2_OnFreeTxBuf</OnFreeTxBuf_Name>
+    <OnFreeTxBuf_Priority>same as interrupt</OnFreeTxBuf_Priority>
+    <OnBreak_Selected>0</OnBreak_Selected>
+    <OnBreak_Name>AS2_OnBreak</OnBreak_Name>
+    <OnBreak_Priority>same as interrupt</OnBreak_Priority>
+    <OnTxComplete_Selected>1</OnTxComplete_Selected>
+    <OnTxComplete_Name>AS2_OnTxComplete</OnTxComplete_Name>
+    <OnTxComplete_Priority>same as interrupt</OnTxComplete_Priority>
+    <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
+    <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
+    <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
+    <GenMethodPos>27</GenMethodPos>
+    <MethodPos>
+      <MethodPos0>RecvChar</MethodPos0>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>157</LineBeg>
+      <LineEnd>190</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos1>SendChar</MethodPos1>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>191</LineBeg>
+      <LineEnd>214</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos2>RecvBlock</MethodPos2>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>215</LineBeg>
+      <LineEnd>248</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos3>SendBlock</MethodPos3>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>249</LineBeg>
+      <LineEnd>273</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos4>ClearRxBuf</MethodPos4>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>274</LineBeg>
+      <LineEnd>290</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos5>ClearTxBuf</MethodPos5>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>291</LineBeg>
+      <LineEnd>308</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos6>GetCharsInRxBuf</MethodPos6>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>309</LineBeg>
+      <LineEnd>322</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos7>GetCharsInTxBuf</MethodPos7>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>323</LineBeg>
+      <LineEnd>337</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos8>Init</MethodPos8>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>338</LineBeg>
+      <LineEnd>350</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos9>Serial_LDD OnBlockReceived</MethodPos9>
+      <MethodType>inherited_event</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>351</LineBeg>
+      <LineEnd>362</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos10>Serial_LDD OnBlockSent</MethodPos10>
+      <MethodType>inherited_event</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>363</LineBeg>
+      <LineEnd>374</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos11>Serial_LDD OnError</MethodPos11>
+      <MethodType>inherited_event</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>375</LineBeg>
+      <LineEnd>386</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos12>Serial_LDD OnBreak</MethodPos12>
+      <MethodType>inherited_event</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>387</LineBeg>
+      <LineEnd>397</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos13>HWEnDi</MethodPos13>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>163</LineBeg>
+      <LineEnd>178</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos14>RecvChar</MethodPos14>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>179</LineBeg>
+      <LineEnd>230</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos15>SendChar</MethodPos15>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>231</LineBeg>
+      <LineEnd>271</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos16>RecvBlock</MethodPos16>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>272</LineBeg>
+      <LineEnd>327</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos17>SendBlock</MethodPos17>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>328</LineBeg>
+      <LineEnd>383</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos18>ClearRxBuf</MethodPos18>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>384</LineBeg>
+      <LineEnd>408</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos19>ClearTxBuf</MethodPos19>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>409</LineBeg>
+      <LineEnd>434</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos20>GetCharsInRxBuf</MethodPos20>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>435</LineBeg>
+      <LineEnd>451</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos21>GetCharsInTxBuf</MethodPos21>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>452</LineBeg>
+      <LineEnd>469</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos22>Init</MethodPos22>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>470</LineBeg>
+      <LineEnd>493</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos23>Serial_LDD OnBlockReceived</MethodPos23>
+      <MethodType>inherited_event</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>494</LineBeg>
+      <LineEnd>538</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos24>Serial_LDD OnBlockSent</MethodPos24>
+      <MethodType>inherited_event</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>539</LineBeg>
+      <LineEnd>580</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos25>Serial_LDD OnError</MethodPos25>
+      <MethodType>inherited_event</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>581</LineBeg>
+      <LineEnd>605</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos26>Serial_LDD OnBreak</MethodPos26>
+      <MethodType>inherited_event</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>606</LineBeg>
+      <LineEnd>620</LineEnd>
+    </MethodPos>
+    <GenExtraFilesCount>0</GenExtraFilesCount>
+    <InhrCompID_24>
+      <Generated>true</Generated>
+      <GenCompName>ASerialLdd2</GenCompName>
+      <GenComponentVersion>01.188</GenComponentVersion>
+      <GenDriverVersion>01.12</GenDriverVersion>
+      <GenEventModule>Events</GenEventModule>
+      <HeaderAge>1283760490</HeaderAge>
+      <CodeAge>1283760490</CodeAge>
+      <AsemblAge>-1</AsemblAge>
+      <GenNumMethods>36</GenNumMethods>
+      <Init>true</Init>
+      <Deinit>false</Deinit>
+      <Enable>false</Enable>
+      <Disable>false</Disable>
+      <SendBlock>true</SendBlock>
+      <ReceiveBlock>true</ReceiveBlock>
+      <CancelBlockTransmission>false</CancelBlockTransmission>
+      <CancelBlockReception>false</CancelBlockReception>
+      <GetError>true</GetError>
+      <GetSentDataNum>false</GetSentDataNum>
+      <GetReceivedDataNum>false</GetReceivedDataNum>
+      <GetTxCompleteStatus>false</GetTxCompleteStatus>
+      <SetEventMask>false</SetEventMask>
+      <GetEventMask>false</GetEventMask>
+      <SelectBaudRate>false</SelectBaudRate>
+      <GetSelectedBaudRate>false</GetSelectedBaudRate>
+      <SetParity>false</SetParity>
+      <GetParity>false</GetParity>
+      <SetDataWidth>false</SetDataWidth>
+      <GetDataWidth>false</GetDataWidth>
+      <SetStopBitLength>false</SetStopBitLength>
+      <GetStopBitLength>false</GetStopBitLength>
+      <SetLoopMode>false</SetLoopMode>
+      <GetLoopMode>false</GetLoopMode>
+      <GetStats>false</GetStats>
+      <ClearStats>false</ClearStats>
+      <SendBreak>false</SendBreak>
+      <GetBreak>false</GetBreak>
+      <TurnTxOn>false</TurnTxOn>
+      <TurnTxOff>false</TurnTxOff>
+      <TurnRxOn>false</TurnRxOn>
+      <TurnRxOff>false</TurnRxOff>
+      <ConnectPin>false</ConnectPin>
+      <Main>false</Main>
+      <SetOperationMode>false</SetOperationMode>
+      <GetDriverState>false</GetDriverState>
+      <GenNumEvents>5</GenNumEvents>
+      <OnBlockReceived_Selected>2</OnBlockReceived_Selected>
+      <OnBlockReceived_Name>ASerialLdd2_OnBlockReceived</OnBlockReceived_Name>
+      <OnBlockReceived_Priority>interrupts disabled</OnBlockReceived_Priority>
+      <OnBlockSent_Selected>2</OnBlockSent_Selected>
+      <OnBlockSent_Name>ASerialLdd2_OnBlockSent</OnBlockSent_Name>
+      <OnBlockSent_Priority>interrupts disabled</OnBlockSent_Priority>
+      <OnBreak_Selected>2</OnBreak_Selected>
+      <OnBreak_Name>ASerialLdd2_OnBreak</OnBreak_Name>
+      <OnBreak_Priority>interrupts disabled</OnBreak_Priority>
+      <OnError_Selected>2</OnError_Selected>
+      <OnError_Name>ASerialLdd2_OnError</OnError_Name>
+      <OnError_Priority>interrupts disabled</OnError_Priority>
+      <OnTxComplete_Selected>0</OnTxComplete_Selected>
+      <OnTxComplete_Name>ASerialLdd2_OnTxComplete</OnTxComplete_Name>
+      <OnTxComplete_Priority>interrupts disabled</OnTxComplete_Priority>
+      <ISR_InpIntISRHandle />
+      <ISR_OutIntISRHandle />
+      <ISR_ErrIntISRHandle />
+      <ISR_IdleIntISRHandle />
+      <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
+      <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
+      <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
+      <GenMethodPos>12</GenMethodPos>
+      <MethodPos>
+        <MethodPos0>Init</MethodPos0>
+        <MethodType>method</MethodType>
+        <ModuleType>Header</ModuleType>
+        <LineBeg>165</LineBeg>
+        <LineEnd>187</LineEnd>
+      </MethodPos>
+      <MethodPos>
+        <MethodPos1>ReceiveBlock</MethodPos1>
+        <MethodType>method</MethodType>
+        <ModuleType>Header</ModuleType>
+        <LineBeg>188</LineBeg>
+        <LineEnd>233</LineEnd>
+      </MethodPos>
+      <MethodPos>
+        <MethodPos2>SendBlock</MethodPos2>
+        <MethodType>method</MethodType>
+        <ModuleType>Header</ModuleType>
+        <LineBeg>234</LineBeg>
+        <LineEnd>275</LineEnd>
+      </MethodPos>
+      <MethodPos>
+        <MethodPos3>Interrupt</MethodPos3>
+        <MethodType>internal_method</MethodType>
+        <ModuleType>Header</ModuleType>
+        <LineBeg>276</LineBeg>
+        <LineEnd>288</LineEnd>
+      </MethodPos>
+      <MethodPos>
+        <MethodPos4>GetError</MethodPos4>
+        <MethodType>method</MethodType>
+        <ModuleType>Header</ModuleType>
+        <LineBeg>289</LineBeg>
+        <LineEnd>319</LineEnd>
+      </MethodPos>
+      <MethodPos>
+        <MethodPos5>Init</MethodPos5>
+        <MethodType>method</MethodType>
+        <ModuleType>Code</ModuleType>
+        <LineBeg>134</LineBeg>
+        <LineEnd>231</LineEnd>
+      </MethodPos>
+      <MethodPos>
+        <MethodPos6>ReceiveBlock</MethodPos6>
+        <MethodType>method</MethodType>
+        <ModuleType>Code</ModuleType>
+        <LineBeg>232</LineBeg>
+        <LineEnd>295</LineEnd>
+      </MethodPos>
+      <MethodPos>
+        <MethodPos7>SendBlock</MethodPos7>
+        <MethodType>method</MethodType>
+        <ModuleType>Code</ModuleType>
+        <LineBeg>296</LineBeg>
+        <LineEnd>357</LineEnd>
+      </MethodPos>
+      <MethodPos>
+        <MethodPos8>InterruptRx</MethodPos8>
+        <MethodType>internal_method</MethodType>
+        <ModuleType>Code</ModuleType>
+        <LineBeg>358</LineBeg>
+        <LineEnd>382</LineEnd>
+      </MethodPos>
+      <MethodPos>
+        <MethodPos9>InterruptTx</MethodPos9>
+        <MethodType>internal_method</MethodType>
+        <ModuleType>Code</ModuleType>
+        <LineBeg>383</LineBeg>
+        <LineEnd>408</LineEnd>
+      </MethodPos>
+      <MethodPos>
+        <MethodPos10>Interrupt</MethodPos10>
+        <MethodType>internal_method</MethodType>
+        <ModuleType>Code</ModuleType>
+        <LineBeg>409</LineBeg>
+        <LineEnd>464</LineEnd>
+      </MethodPos>
+      <MethodPos>
+        <MethodPos11>GetError</MethodPos11>
+        <MethodType>method</MethodType>
+        <ModuleType>Code</ModuleType>
+        <LineBeg>465</LineBeg>
+        <LineEnd>506</LineEnd>
+      </MethodPos>
+      <GenExtraFilesCount>1</GenExtraFilesCount>
+      <ExtraFile0>Documentation\doxygen\ASerialLdd2_component.txt</ExtraFile0>
+    </InhrCompID_24>
+  </ComponentID_23>
   <UsedSrcFiles>
     <SrcFile0>Drivers\Common\UtilityNumFloatToStr.Inc=1262320736</SrcFile0>
     <SrcFile1>Drivers\Common\XFormatAbstract.Inc=1262320733</SrcFile1>

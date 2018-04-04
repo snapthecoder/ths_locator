@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-03, 15:41, # CodeGen: 2
+**     Date/Time   : 2018-04-04, 20:08, # CodeGen: 16
 **     Abstract    :
 **
 **     Settings    :
@@ -74,6 +74,8 @@
 #include "XF1.h"
 #include "CS1.h"
 #include "TMOUT1.h"
+#include "AS2.h"
+#include "ASerialLdd2.h"
 
 
 /*
