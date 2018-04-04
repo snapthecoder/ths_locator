@@ -97,4 +97,14 @@ void sendCommand(uint16_t timeOut, bool waitForResponse);
 uint16_t calculateCRC(uint8_t *u8Buf, uint8_t len);
 uint8_t parseResponse(void);
 
+uint8_t getTagDataBytes(void);
+uint8_t getTagEPCBytes(void);
+bool nanoCheck(void);
+
+#include "CLS1.h"
+
+void nanoPrintStatus(void);
+
+static void Serial_println(const char *msg);
+
 #endif /* SOURCES_NANO_H_ */

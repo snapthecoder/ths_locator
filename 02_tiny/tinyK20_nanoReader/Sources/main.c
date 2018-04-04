@@ -49,8 +49,11 @@
 #include "CS1.h"
 #include "TMOUT1.h"
 #include "nano.h"
+#include "CLS1.h"
+
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
+void _exit(int a){}
 
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
 int main(void)
@@ -64,11 +67,24 @@ int main(void)
 
   /* Write your code here */
   /* For example: for(;;) { } */
-
-  nanoSetRegion(REGION_EUROPE);
-  nanoSetReadPower(500);
-
   nanoStartReading();
+  WAIT1_Waitms(100);
+
+  for(;;){
+
+	  if(nanoCheck() == 1){
+		  uint8_t responseType = parseResponse();
+
+		  if(responseType == RESPONSE_IS_KEEPALIVE){
+			  //scanning
+		  }
+		  else if(responseType == RESPONSE_IS_TAGFOUND){
+			  nanoPrintStatus();
+		  }
+  	  }
+  }
+
+  nanoStopReading();
 
   for(;;){
 	  LED1_Neg();

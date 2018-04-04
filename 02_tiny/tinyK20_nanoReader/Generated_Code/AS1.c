@@ -7,7 +7,7 @@
 **     Version     : Component 02.611, Driver 01.01, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-03, 17:58, # CodeGen: 5
+**     Date/Time   : 2018-04-04, 13:12, # CodeGen: 12
 **     Abstract    :
 **         This component "AsynchroSerial" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -20,13 +20,13 @@
 **          Channel                                        : UART0
 **          Interrupt service/event                        : Enabled
 **            Interrupt RxD                                : INT_UART0_RX_TX
-**            Interrupt RxD priority                       : medium priority
+**            Interrupt RxD priority                       : 1
 **            Interrupt TxD                                : INT_UART0_RX_TX
-**            Interrupt TxD priority                       : medium priority
+**            Interrupt TxD priority                       : 1
 **            Interrupt Error                              : INT_UART0_ERR
 **            Interrupt Error priority                     : medium priority
-**            Input buffer size                            : 2048
-**            Output buffer size                           : 2048
+**            Input buffer size                            : 128
+**            Output buffer size                           : 128
 **            Handshake                                    : 
 **              CTS                                        : Disabled
 **              RTS                                        : Disabled
@@ -58,6 +58,8 @@
 **          Referenced components                          : 
 **            Serial_LDD                                   : Serial_LDD
 **     Contents    :
+**         Enable          - byte AS1_Enable(void);
+**         Disable         - byte AS1_Disable(void);
 **         RecvChar        - byte AS1_RecvChar(AS1_TComData *Chr);
 **         SendChar        - byte AS1_SendChar(AS1_TComData Chr);
 **         RecvBlock       - byte AS1_RecvBlock(AS1_TComData *Ptr, word Size, word *Rcv);
@@ -137,6 +139,7 @@ extern "C" {
 #define COMMON_ERR       0x0800U       /* Common error of RX       */
 
 LDD_TDeviceData *ASerialLdd1_DeviceDataPtr; /* Device data pointer */
+static bool EnUser;                    /* Enable/Disable SCI */
 static word SerFlag;                   /* Flags for serial communication */
                                        /* Bits: 0 - OverRun error */
                                        /*       1 - Framing error */
@@ -174,7 +177,64 @@ static bool OnFreeTxBufSemaphore;      /* Disable the false calling of the OnFre
 */
 static void HWEnDi(void)
 {
-  (void)ASerialLdd1_ReceiveBlock(ASerialLdd1_DeviceDataPtr, &BufferRead, 1U); /* Receive one data byte */
+  if (EnUser) {                        /* Enable device? */
+    (void)ASerialLdd1_Enable(ASerialLdd1_DeviceDataPtr); /* Enable device */
+    (void)ASerialLdd1_ReceiveBlock(ASerialLdd1_DeviceDataPtr, &BufferRead, 1U); /* Receive one data byte */
+    if ((AS1_OutLen) != 0U) {          /* Is number of bytes in the transmit buffer greater then 0? */
+      SerFlag |= RUNINT_FROM_TX;       /* Set flag "running int from TX"? */
+      (void)ASerialLdd1_SendBlock(ASerialLdd1_DeviceDataPtr, (LDD_TData *)&OutBuffer[OutIndexR], 1U); /* Send one data byte */
+    }
+  } else {
+    SerFlag &= (byte)~(RUNINT_FROM_TX); /* Clear RUNINT_FROM_TX flag */
+    (void)ASerialLdd1_Disable(ASerialLdd1_DeviceDataPtr); /* Disable device */
+  }
+}
+
+/*
+** ===================================================================
+**     Method      :  AS1_Enable (component AsynchroSerial)
+**     Description :
+**         Enables the component - it starts the send and receive
+**         functions. Events may be generated
+**         ("DisableEvent"/"EnableEvent").
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+byte AS1_Enable(void)
+{
+  if (!EnUser) {                       /* Is the device disabled by user? */
+    EnUser = TRUE;                     /* If yes then set the flag "device enabled" */
+    HWEnDi();                          /* Enable the device */
+  }
+  return ERR_OK;                       /* OK */
+}
+
+/*
+** ===================================================================
+**     Method      :  AS1_Disable (component AsynchroSerial)
+**     Description :
+**         Disables the component - it stops the send and receive
+**         functions. No events will be generated.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+byte AS1_Disable(void)
+{
+  if (EnUser) {                        /* Is the device enabled by user? */
+    EnUser = FALSE;                    /* If yes then set the flag "device disabled" */
+    HWEnDi();                          /* Disable the device */
+  }
+  return ERR_OK;                       /* OK */
 }
 
 /*
@@ -262,7 +322,7 @@ byte AS1_SendChar(AS1_TComData Chr)
   if (OutIndexW >= AS1_OUT_BUF_SIZE) { /* Is the pointer out of the transmit buffer */
     OutIndexW = 0x00U;                 /* Set index to first item in the transmit buffer */
   }
-  if ((SerFlag & RUNINT_FROM_TX) == 0U) {
+  if ((EnUser) && ((SerFlag & RUNINT_FROM_TX) == 0U)) { /* Is the device enabled by user? */
     SerFlag |= RUNINT_FROM_TX;         /* Set flag "running int from TX"? */
     (void)ASerialLdd1_SendBlock(ASerialLdd1_DeviceDataPtr, (LDD_TData *)&OutBuffer[OutIndexR], 1U); /* Send one data byte */
   }
@@ -369,7 +429,7 @@ byte AS1_SendBlock(AS1_TComData *Ptr, word Size, word *Snd)
         OnFreeTxBufSemaphore = FALSE;  /* If yes then clear the OnFreeTxBufSemaphore */
       }
     }
-    if ((SerFlag & RUNINT_FROM_TX) == 0U) {
+    if ((EnUser) && ((SerFlag & RUNINT_FROM_TX) == 0U)) { /* Is the device enabled by user? */
       SerFlag |= RUNINT_FROM_TX;       /* Set flag "running int from TX"? */
       (void)ASerialLdd1_SendBlock(ASerialLdd1_DeviceDataPtr, (LDD_TData *)&OutBuffer[OutIndexR], 1U); /* Send one data byte */
     }
@@ -482,6 +542,7 @@ word AS1_GetCharsInTxBuf(void)
 void AS1_Init(void)
 {
   SerFlag = 0x00U;                     /* Reset flags */
+  EnUser = TRUE;                       /* Enable device */
   AS1_InpLen = 0x00U;                  /* No char in the receive buffer */
   InpIndexR = 0x00U;                   /* Set index on the first item in the receive buffer */
   InpIndexW = 0x00U;

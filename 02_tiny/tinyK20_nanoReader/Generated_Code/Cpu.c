@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P48M50SF0RM Rev. 1, Oct 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-03, 15:50, # CodeGen: 3
+**     Date/Time   : 2018-04-04, 13:18, # CodeGen: 13
 **     Abstract    :
 **
 **     Settings    :
@@ -523,12 +523,12 @@ void PE_low_level_init(void)
   /* ### Asynchro serial "AS1" init code ... */
   AS1_Init();
   WAIT1_Init();
+  /* ### SeggerRTT "RTT1" init code ... */
+  RTT1_Init();
   /* ### XFormat "XF1" init code ... */
   /* ### CriticalSection "CS1" init code ... */
   /* ### Shell "CLS1" init code ... */
   CLS1_Init(); /* initialize shell */
-  /* ### SeggerRTT "RTT1" init code ... */
-  RTT1_Init();
   /* ### Timeout "TMOUT1" init code ... */
   TMOUT1_Init();
   /* Enable interrupts of the given priority level */

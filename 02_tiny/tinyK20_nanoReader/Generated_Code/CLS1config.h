@@ -37,13 +37,13 @@
 #endif
 
 #if CLS1_CONFIG_DEFAULT_SERIAL
-  #define CLS1_CONFIG_DEFAULT_SERIAL_RECEIVE_FCT_NAME   AS1_RecvChar
+  #define CLS1_CONFIG_DEFAULT_SERIAL_RECEIVE_FCT_NAME   RTT1_RecvChar
     /*!< Function name to read a character and returning ERR_OK if it was successful */
 
-  #define CLS1_CONFIG_DEFAULT_SERIAL_SEND_FCT_NAME   AS1_SendChar
+  #define CLS1_CONFIG_DEFAULT_SERIAL_SEND_FCT_NAME   RTT1_SendChar
     /*!< Function name to send a character and returning ERR_OK if it was successful */
 
-  #define CLS1_CONFIG_DEFAULT_SERIAL_RXAVAIL_FCT_NAME   AS1_GetCharsInRxBuf
+  #define CLS1_CONFIG_DEFAULT_SERIAL_RXAVAIL_FCT_NAME   RTT1_GetCharsInRxBuf
     /*!< Function name to check if there is anything available to receive and returns TRUE, otherwise FALSE */
 #endif
 

@@ -235,13 +235,13 @@ PE_DEBUGHALT();
       <Channel v="UART0" />
       <boolgroup name="Interrupt service/event" v="Enabled">
         <Interrupt_RxD v="INT_UART0_RX_TX" />
-        <Interrupt_RxD_priority v="medium priority" />
+        <Interrupt_RxD_priority v="1" />
         <Interrupt_TxD v="INT_UART0_RX_TX" />
-        <Interrupt_TxD_priority v="medium priority" />
+        <Interrupt_TxD_priority v="1" />
         <Interrupt_Error v="INT_UART0_ERR" />
         <Interrupt_Error_priority v="medium priority" />
-        <Input_buffer_size v="2048" />
-        <Output_buffer_size v="2048" />
+        <Input_buffer_size v="128" />
+        <Output_buffer_size v="128" />
         <group name="Handshake">
           <boolgroup name="CTS" v="Disabled" />
           <boolgroup name="RTS" v="Disabled" />
@@ -283,9 +283,9 @@ PE_DEBUGHALT();
             <Device v="UART0" />
             <boolgroup name="Interrupt service/event" v="Enabled">
               <Interrupt_RxD v="INT_UART0_RX_TX" />
-              <Interrupt_RxD_priority v="medium priority" />
+              <Interrupt_RxD_priority v="1" />
               <Interrupt_TxD v="INT_UART0_RX_TX" />
-              <Interrupt_TxD_priority v="medium priority" />
+              <Interrupt_TxD_priority v="1" />
               <Interrupt_Error v="INT_UART0_ERR" />
               <Interrupt_Error_priority v="medium priority" />
             </boolgroup>
@@ -325,8 +325,8 @@ PE_DEBUGHALT();
           <Methods>
             <Init v="generate code" />
             <Deinit v="don&amp;apos;t generate code" />
-            <Enable v="don&amp;apos;t generate code" />
-            <Disable v="don&amp;apos;t generate code" />
+            <Enable v="generate code" />
+            <Disable v="generate code" />
             <SendBlock v="generate code" />
             <ReceiveBlock v="generate code" />
             <CancelBlockTransmission v="don&amp;apos;t generate code" />
@@ -380,8 +380,8 @@ PE_DEBUGHALT();
       </group>
     </Properties>
     <Methods>
-      <Enable v="don&amp;apos;t generate code" />
-      <Disable v="don&amp;apos;t generate code" />
+      <Enable v="generate code" />
+      <Disable v="generate code" />
       <EnableEvent v="don&amp;apos;t generate code" />
       <DisableEvent v="don&amp;apos;t generate code" />
       <RecvChar v="generate code" />
@@ -537,7 +537,7 @@ PE_DEBUGHALT();
       <Mutex v="no" />
       <SDK v="MCUC1" />
       <boolgroup name="Default Serial" v="Enabled">
-        <Console_Interface v="AS1" />
+        <Console_Interface v="RTT1" />
       </boolgroup>
       <Utility v="UTIL1" />
       <XFormat v="XF1" />

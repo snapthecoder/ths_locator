@@ -12,5 +12,7 @@
 #define PL_HAS_RFID_READER_NANO6e 	1
 #define PL_USE_HW_RTC             	1
 #define PL_CONFIG_HAS_SEGGER_RTT  	1
+#define PL_CONFIG_HAS_SHELL			1
+#define PL_CONFIG_HAS_SEGGER_RTT	1
 
 #endif /* SOURCES_PLATFORM_H_ */

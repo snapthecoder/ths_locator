@@ -18,6 +18,9 @@ Module "LED1"      (component LED)
 Module "MCUC1"     (component McuLibConfig)
 
 Module "AS1"       (component AsynchroSerial)
+   - AS1_Enable -Enables the component - it starts the send and receive functions. Events may be generated 
+                ("DisableEvent"/"EnableEvent").
+   - AS1_Disable -Disables the component - it stops the send and receive functions. No events will be generated.
    - AS1_RecvChar -If any data is received, this method returns one character, otherwise it returns an error code (it does not 
                 wait for data). This method is enabled only if the receiver property is enabled.  [Note:] Because the preferred 
                 method to handle error and break exception in the interrupt mode is to use events <OnError> and <OnBreak> the 

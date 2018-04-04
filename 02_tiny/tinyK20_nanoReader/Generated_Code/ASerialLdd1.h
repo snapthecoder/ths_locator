@@ -7,7 +7,7 @@
 **     Version     : Component 01.188, Driver 01.12, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-03, 17:58, # CodeGen: 5
+**     Date/Time   : 2018-04-04, 13:12, # CodeGen: 12
 **     Abstract    :
 **         This component "Serial_LDD" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -20,9 +20,9 @@
 **          Device                                         : UART0
 **          Interrupt service/event                        : Enabled
 **            Interrupt RxD                                : INT_UART0_RX_TX
-**            Interrupt RxD priority                       : medium priority
+**            Interrupt RxD priority                       : 1
 **            Interrupt TxD                                : INT_UART0_RX_TX
-**            Interrupt TxD priority                       : medium priority
+**            Interrupt TxD priority                       : 1
 **            Interrupt Error                              : INT_UART0_ERR
 **            Interrupt Error priority                     : medium priority
 **          Settings                                       : 
@@ -64,6 +64,8 @@
 **            Clock configuration 7                        : This component disabled
 **     Contents    :
 **         Init         - LDD_TDeviceData* ASerialLdd1_Init(LDD_TUserData *UserDataPtr);
+**         Enable       - LDD_TError ASerialLdd1_Enable(LDD_TDeviceData *DeviceDataPtr);
+**         Disable      - LDD_TError ASerialLdd1_Disable(LDD_TDeviceData *DeviceDataPtr);
 **         SendBlock    - LDD_TError ASerialLdd1_SendBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
 **         ReceiveBlock - LDD_TError ASerialLdd1_ReceiveBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
 **         GetError     - LDD_TError ASerialLdd1_GetError(LDD_TDeviceData *DeviceDataPtr,...
@@ -133,6 +135,8 @@ extern "C" {
   
 /* Methods configuration constants - generated for all enabled component's methods */
 #define ASerialLdd1_Init_METHOD_ENABLED /*!< Init method of the component ASerialLdd1 is enabled (generated) */
+#define ASerialLdd1_Enable_METHOD_ENABLED /*!< Enable method of the component ASerialLdd1 is enabled (generated) */
+#define ASerialLdd1_Disable_METHOD_ENABLED /*!< Disable method of the component ASerialLdd1 is enabled (generated) */
 #define ASerialLdd1_SendBlock_METHOD_ENABLED /*!< SendBlock method of the component ASerialLdd1 is enabled (generated) */
 #define ASerialLdd1_ReceiveBlock_METHOD_ENABLED /*!< ReceiveBlock method of the component ASerialLdd1 is enabled (generated) */
 #define ASerialLdd1_GetError_METHOD_ENABLED /*!< GetError method of the component ASerialLdd1 is enabled (generated) */
@@ -151,6 +155,7 @@ extern "C" {
 /*! Device data structure type */
 typedef struct {
   uint16_t SerFlag;                    /*!< Flags for serial communication */
+  bool EnUser;                         /*!< Enable/Disable device */
   LDD_SERIAL_TError ErrFlag;           /*!< Error flags mirror of SerFlag */
   uint16_t InpRecvDataNum;             /*!< The counter of received characters */
   uint8_t *InpDataPtr;                 /*!< The buffer pointer for received characters */
@@ -185,6 +190,44 @@ typedef ASerialLdd1_TDeviceData *ASerialLdd1_TDeviceDataPtr ; /*!< Pointer to th
 */
 /* ===================================================================*/
 LDD_TDeviceData* ASerialLdd1_Init(LDD_TUserData *UserDataPtr);
+
+/*
+** ===================================================================
+**     Method      :  ASerialLdd1_Enable (component Serial_LDD)
+*/
+/*!
+**     @brief
+**         Enables the device, starts the transmitting and receiving.
+**     @param
+**         DeviceDataPtr   - Device data structure
+**                           pointer returned by [Init] method.
+**     @return
+**                         - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - The component does not work in
+**                           the active clock configuration.
+*/
+/* ===================================================================*/
+LDD_TError ASerialLdd1_Enable(LDD_TDeviceData *DeviceDataPtr);
+
+/*
+** ===================================================================
+**     Method      :  ASerialLdd1_Disable (component Serial_LDD)
+*/
+/*!
+**     @brief
+**         Disables the device, stops the transmitting and receiving.
+**     @param
+**         DeviceDataPtr   - Device data structure
+**                           pointer returned by [Init] method.
+**     @return
+**                         - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - The component does not work in
+**                           the active clock configuration.
+*/
+/* ===================================================================*/
+LDD_TError ASerialLdd1_Disable(LDD_TDeviceData *DeviceDataPtr);
 
 /*
 ** ===================================================================

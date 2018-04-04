@@ -71,6 +71,7 @@
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\XF1.c</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Project_Settings\Startup_Code\startup.c</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Sources\Events.c</PathName>
+      <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Sources\Shell.c</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Sources\main.c</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Sources\nano.c</PathName>
     </GeneratedCs>
@@ -107,6 +108,7 @@
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\XF1config.h</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Sources\Events.h</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Sources\Platform.h</PathName>
+      <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Sources\Shell.h</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Sources\nano.h</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Static_Code\IO_Map\MK20D5.h</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Static_Code\PDD\ADC_PDD.h</PathName>

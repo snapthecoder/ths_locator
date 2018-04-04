@@ -28,7 +28,7 @@ by the component.
 <td class="regNotResetVal">0x00000300</td>
  <td>PORTD_PCR7 register, peripheral ASerialLdd1.</td></tr>
 <tr><td>0xE000E410</td><td>NVICIP16</td>
-<td class="regNotResetVal">0x00000080</td>
+<td class="regNotResetVal">0x00000010</td>
  <td>NVICIP16 register, peripheral ASerialLdd1.</td></tr>
 <tr><td>0xE000E100</td><td>NVICISER0</td>
 <td class="regNotResetVal">0x00030000</td>
@@ -255,10 +255,10 @@ registers of the peripheral(s) configured by the component.
         
 </div>
 <table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0xE000E410</td></tr>
-<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000080</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000010</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
-<tr><td>0 - 7</td><td>PRI16</td><td>0x80</td><td>Priority of interrupt 16</td>
+<tr><td>0 - 7</td><td>PRI16</td><td>0x00</td><td>Priority of interrupt 16</td>
 </tr></table>
 <div class="reghdr1">NVICISER0</div>
 <div class="regdiag">
@@ -492,9 +492,9 @@ registers of the peripheral(s) configured by the component.
 **          Device                                         : UART0
 **          Interrupt service/event                        : Enabled
 **            Interrupt RxD                                : INT_UART0_RX_TX
-**            Interrupt RxD priority                       : medium priority
+**            Interrupt RxD priority                       : 1
 **            Interrupt TxD                                : INT_UART0_RX_TX
-**            Interrupt TxD priority                       : medium priority
+**            Interrupt TxD priority                       : 1
 **            Interrupt Error                              : INT_UART0_ERR
 **            Interrupt Error priority                     : medium priority
 **          Settings                                       : 

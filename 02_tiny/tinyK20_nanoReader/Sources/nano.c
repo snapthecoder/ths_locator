@@ -16,23 +16,44 @@
 #include "nano.h"
 #include "RTT1.h"
 #include "TMOUT1.h"
+#include "CLS1.h"
 
 uint8_t _headnano = 0;
 
+/*
+** ===================================================================
+**     Method      :  NanoInit
+**     Description :
+**         Sets region to europe and readpower to 20dBm
+**     Parameters  : None
+**     Returns     : None
+** ===================================================================
+*/
 void NanoInit(void){
+	  nanoSetRegion(REGION_EUROPE);
+	  WAIT1_Waitms(10);
 
+	  nanoSetReadPower(20000);
+	  WAIT1_Waitms(10);
 }
 
-/* Sets Baudrate on Nano
- * possible Baudrates
- 	9600,
-	19200,
-	38400,
-	115200,
-	230400,
-	460800,
-	921600,
- */
+/*
+** ===================================================================
+**     Method      :  nanoSetBaud
+**     Description :
+**         Sets baudrate of nano reader. With no wait for response.
+**     Parameters  : baudRate - Baudrate possible values:
+**     			9600,
+**				19200,
+**				38400,
+**				115200,
+**				230400,
+**				460800,
+**				921600
+**
+**     Returns     : None
+** ===================================================================
+*/
 void nanoSetBaud(long baudRate){
 	//Copy this setting into a temp data array
 	uint8_t size = sizeof(baudRate);
@@ -47,13 +68,21 @@ void nanoSetBaud(long baudRate){
 *There are many many options and features to the nano, this sets options
 *for continuous read of GEN2 type tags
 */
+/*
+** ===================================================================
+**     Method      :  nanoStartReading
+**     Description :  Starting with continous reading
+**     Parameters  :  None
+**     Returns     :  None
+** ===================================================================
+*/
 void nanoStartReading(void){
 	nanoDisableReadFilter(); //Don't filter for a specific tag, read all tags
 
 	//define "blobb" (command for nano)
 	uint8_t configBlob[] = {0x00, 0x00, 0x01, 0x22, 0x00, 0x00, 0x05, 0x07, 0x22, 0x10, 0x00, 0x1B, 0x03, 0xE8, 0x01, 0xFF};
 
-	sendMessage(TMR_SR_OPCODE_MULTI_PROTOCOL_TAG_OP, configBlob, sizeof(configBlob), 10, 0);
+	sendMessage(TMR_SR_OPCODE_MULTI_PROTOCOL_TAG_OP, configBlob, sizeof(configBlob), COMMAND_TIME_OUT, 1);
 }
 
 void nanoStopReading(void){
@@ -61,7 +90,7 @@ void nanoStopReading(void){
 	//02 = Option - stop continuous reading
 	uint8_t configBlob[] = {0x00, 0x00, 0x02};
 
-	sendMessage(TMR_SR_OPCODE_MULTI_PROTOCOL_TAG_OP, configBlob, sizeof(configBlob), 10, 0); //Do not wait for response
+	sendMessage(TMR_SR_OPCODE_MULTI_PROTOCOL_TAG_OP, configBlob, sizeof(configBlob), COMMAND_TIME_OUT, 0); //Do not wait for response
 }
 
 /*Given a region, set the correct freq
@@ -76,7 +105,7 @@ void nanoStopReading(void){
 0xFF = OPEN
 */
 void nanoSetRegion(uint8_t region){
-	sendMessage(TMR_SR_OPCODE_SET_REGION, &region, sizeof(region), 10 , 0);
+	sendMessage(TMR_SR_OPCODE_SET_REGION, &region, sizeof(region), COMMAND_TIME_OUT , 1);
 }
 
 /*Sets the TX and RX antenna ports to 01
@@ -85,7 +114,7 @@ Because the Nano module has only one antenna port, it is not user configurable
 void nanoSetAntennaPort(void)
 {
   uint8_t configBlob[] = {0x01, 0x01}; //TX port = 1, RX port = 1
-  sendMessage(TMR_SR_OPCODE_SET_ANTENNA_PORT, configBlob, sizeof(configBlob), 10, 0);
+  sendMessage(TMR_SR_OPCODE_SET_ANTENNA_PORT, configBlob, sizeof(configBlob), COMMAND_TIME_OUT, 1);
 }
 
 /*Sets the protocol of the module
@@ -105,7 +134,7 @@ void nanoSetTagProtocol(uint8_t protocol)
   data[0] = 0; 	//Opcode expects 16-bits
   data[1] = protocol;
 
-  sendMessage(TMR_SR_OPCODE_SET_TAG_PROTOCOL, data, sizeof(data), 10, 0);
+  sendMessage(TMR_SR_OPCODE_SET_TAG_PROTOCOL, data, sizeof(data), COMMAND_TIME_OUT, 1);
 }
 
 void nanoEnableReadFilter(void)
@@ -116,7 +145,7 @@ void nanoEnableReadFilter(void)
 //Disabling the read filter allows continuous reading of tags
 void nanoDisableReadFilter(void)
 {
-  nanoSetReaderConfiguration(0x0C, 0x00); //Diable read filter
+  nanoSetReaderConfiguration(0x0C, 0x00); //Dsiable read filter
 }
 
 /*Sends optional parameters to the module
@@ -132,7 +161,7 @@ void nanoSetReaderConfiguration(uint8_t option1, uint8_t option2)
   data[1] = option1;
   data[2] = option2;
 
-  sendMessage(TMR_SR_OPCODE_SET_READER_OPTIONAL_PARAMS, data, sizeof(data), 10, 0);
+  sendMessage(TMR_SR_OPCODE_SET_READER_OPTIONAL_PARAMS, data, sizeof(data), COMMAND_TIME_OUT, 1);
 }
 
 //getOptionalParameters - OPEN
@@ -152,7 +181,7 @@ void nanoSetReadPower(int16_t powerSetting)
   for (uint8_t x = 0 ; x < size ; x++)
     data[x] = (uint8_t)(powerSetting >> (8 * (size - 1 - x)));
 
-  sendMessage(TMR_SR_OPCODE_SET_READ_TX_POWER, data, size, 10, 0);
+  sendMessage(TMR_SR_OPCODE_SET_READ_TX_POWER, data, size, COMMAND_TIME_OUT, 1);
 }
 
 //Get the read TX power
@@ -161,7 +190,7 @@ void nanoGetReadPower(void)
   uint8_t data[] = {0x00}; //Just return power
   //uint8_t data[] = {0x01}; //Return power with limits
 
-  sendMessage(TMR_SR_OPCODE_GET_READ_TX_POWER, data, sizeof(data), 10, 0);
+  sendMessage(TMR_SR_OPCODE_GET_READ_TX_POWER, data, sizeof(data), COMMAND_TIME_OUT, 1);
 }
 
 //Set the write power
@@ -174,7 +203,7 @@ void nanoSetWritePower(int16_t powerSetting)
   for (uint8_t x = 0 ; x < size ; x++)
     data[x] = (uint8_t)(powerSetting >> (8 * (size - 1 - x)));
 
-  sendMessage(TMR_SR_OPCODE_SET_WRITE_TX_POWER, data, size, 10, 0);
+  sendMessage(TMR_SR_OPCODE_SET_WRITE_TX_POWER, data, size, COMMAND_TIME_OUT, 1);
 }
 
 //Get the write TX power
@@ -183,7 +212,7 @@ void nanoGetWritePower(void)
   uint8_t data[] = {0x00}; //Just return power
   //uint8_t data[] = {0x01}; //Return power with limits
 
-  sendMessage(TMR_SR_OPCODE_GET_WRITE_TX_POWER, data, sizeof(data), 10, 0);
+  sendMessage(TMR_SR_OPCODE_GET_WRITE_TX_POWER, data, sizeof(data), COMMAND_TIME_OUT, 1);
 }
 
 //Read a single EPC
@@ -226,6 +255,34 @@ uint8_t nanoWriteUserData(uint8_t *userData, uint8_t userDataLength, uint16_t ti
 
   return (writeData(bank, address, userData, userDataLength, timeOut));
 }
+
+uint8_t getTagEPCBytes(void)
+{
+  uint16_t epcBits = 0; //Number of bits of EPC (including PC, EPC, and EPC CRC)
+
+  uint8_t tagDataBytes = getTagDataBytes(); //We need this offset
+
+  for (uint8_t x = 0 ; x < 2 ; x++)
+    epcBits |= (uint16_t)msg[27 + tagDataBytes + x] << (8 * (1 - x));
+  uint8_t epcBytes = epcBits / 8;
+  epcBytes -= 4; //Ignore the first two bytes and last two bytes
+
+  return (epcBytes);
+}
+
+
+uint8_t getTagDataBytes(void)
+{
+  //Number of bits of embedded tag data
+  uint8_t tagDataLength = 0;
+  for (uint8_t x = 0 ; x < 2 ; x++)
+    tagDataLength |= (uint16_t)msg[24 + x] << (8 * (1 - x));
+  uint8_t tagDataBytes = tagDataLength / 8;
+  if (tagDataLength % 8 > 0) tagDataBytes++; //Ceiling trick
+
+  return (tagDataBytes);
+}
+
 
 
 
@@ -354,9 +411,9 @@ uint8_t readData(uint8_t bank, uint32_t address, uint8_t *dataRead, uint8_t data
 
 //Checks incoming buffer for the start characters
 //Returns true if a new message is complete and ready to be cracked
-bool nanoCheck()
+bool nanoCheck(void)
 {
-  while (AS1_GetCharsInTxBuf() != 0)
+  while (AS1_GetCharsInRxBuf()>0)
   {
     uint8_t incomingData;
     AS1_RecvChar(&incomingData);
@@ -385,7 +442,6 @@ bool nanoCheck()
 
 		//Used for debugging: Does the user want us to print the command to serial port?
 		// DEGBUG PRINT
-
         return (1);
       }
 
@@ -431,7 +487,7 @@ bool nanoCheck()
     //Send the command to the module
 
     //use sendblock
-/*    uint16_t snt;
+/*  uint16_t snt;
     uint16_t length = (messageLength +5);
 
     if (AS1_SendBlock(&msg[0], length, &snt) != ERR_OK) {
@@ -473,6 +529,7 @@ bool nanoCheck()
     // Layout of response in data array:
     // [0] [1] [2] [3]      [4]      [5] [6]  ... [LEN+4] [LEN+5] [LEN+6]
     // FF  LEN OP  STATUSHI STATUSLO xx  xx   ... xx      CRCHI   CRCLO
+
     messageLength = MAX_MSG_SIZE - 1; //Make the max length for now, adjust it when the actual len comes in
     uint8_t spot = 0;
     while (spot < messageLength)
@@ -484,7 +541,7 @@ bool nanoCheck()
         return;
       }
 
-      if (AS1_GetCharsInRxBuf() != 0)
+      if (AS1_GetCharsInRxBuf() > 0)
       {
 
         AS1_RecvChar(&msg[spot]); //& nötig?
@@ -631,6 +688,34 @@ bool nanoCheck()
 
   }
 
+
+void nanoPrintStatus(void){
+	unsigned char buf[50] = {};
+
+	Serial_println((unsigned char*)"tag found:");
+
+	UTIL1_strcpy(buf, sizeof(buf), (unsigned char*)"0x");
+
+	uint8_t tagEPCBytes = getTagEPCBytes();
+	for (byte x = 0 ; x < tagEPCBytes ; x++)
+	{
+		UTIL1_strcatNum8Hex(buf, sizeof(buf), (uint8_t*)msg[31 + x] );
+		UTIL1_strcat(buf, sizeof(buf), (unsigned char*)" " );
+	}
+
+	Serial_println((unsigned char*)buf);
+}
+
+static void Serial_println(const char *msg) {
+  CLS1_ConstStdIOType *io = CLS1_GetStdio();
+
+  CLS1_SendStr((const unsigned char*)msg, io->stdOut);
+  CLS1_SendStr((const unsigned char*)"\r\n", io->stdOut);
+}
+
+void Serial_print(const char *msg) {
+  CLS1_SendStr((const unsigned char*)msg, CLS1_GetStdio()->stdOut);
+}
 
 
 

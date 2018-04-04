@@ -233,7 +233,20 @@ PE_DEBUGHALT();
     <Properties>
       <Component_name v="AS1" />
       <Channel v="UART0" />
-      <boolgroup name="Interrupt service/event" v="Disabled" />
+      <boolgroup name="Interrupt service/event" v="Enabled">
+        <Interrupt_RxD v="INT_UART0_RX_TX" />
+        <Interrupt_RxD_priority v="1" />
+        <Interrupt_TxD v="INT_UART0_RX_TX" />
+        <Interrupt_TxD_priority v="1" />
+        <Interrupt_Error v="INT_UART0_ERR" />
+        <Interrupt_Error_priority v="medium priority" />
+        <Input_buffer_size v="128" />
+        <Output_buffer_size v="128" />
+        <group name="Handshake">
+          <boolgroup name="CTS" v="Disabled" />
+          <boolgroup name="RTS" v="Disabled" />
+        </group>
+      </boolgroup>
       <group name="Settings">
         <Parity v="none" />
         <Width v="8 bits" />
@@ -268,7 +281,14 @@ PE_DEBUGHALT();
           <Properties>
             <Component_name v="ASerialLdd1" />
             <Device v="UART0" />
-            <boolgroup name="Interrupt service/event" v="Disabled" />
+            <boolgroup name="Interrupt service/event" v="Enabled">
+              <Interrupt_RxD v="INT_UART0_RX_TX" />
+              <Interrupt_RxD_priority v="1" />
+              <Interrupt_TxD v="INT_UART0_RX_TX" />
+              <Interrupt_TxD_priority v="1" />
+              <Interrupt_Error v="INT_UART0_ERR" />
+              <Interrupt_Error_priority v="medium priority" />
+            </boolgroup>
             <group name="Settings">
               <Data_width v="8 bits" />
               <Parity v="None" />
@@ -294,10 +314,10 @@ PE_DEBUGHALT();
             <group name="Initialization">
               <Enabled_in_init__code v="yes" />
               <group name="Event mask">
-                <OnBlockSent v="Disabled" />
-                <OnBlockReceived v="Disabled" />
+                <OnBlockSent v="Enabled" />
+                <OnBlockReceived v="Enabled" />
                 <OnTxComplete v="Disabled" />
-                <OnError v="Disabled" />
+                <OnError v="Enabled" />
                 <OnBreak v="Enabled" />
               </group>
             </group>
@@ -305,15 +325,15 @@ PE_DEBUGHALT();
           <Methods>
             <Init v="generate code" />
             <Deinit v="don&amp;apos;t generate code" />
-            <Enable v="don&amp;apos;t generate code" />
-            <Disable v="don&amp;apos;t generate code" />
+            <Enable v="generate code" />
+            <Disable v="generate code" />
             <SendBlock v="generate code" />
             <ReceiveBlock v="generate code" />
             <CancelBlockTransmission v="don&amp;apos;t generate code" />
             <CancelBlockReception v="don&amp;apos;t generate code" />
             <GetError v="generate code" />
-            <GetSentDataNum v="generate code" />
-            <GetReceivedDataNum v="generate code" />
+            <GetSentDataNum v="don&amp;apos;t generate code" />
+            <GetReceivedDataNum v="don&amp;apos;t generate code" />
             <GetTxCompleteStatus v="don&amp;apos;t generate code" />
             <SetEventMask v="don&amp;apos;t generate code" />
             <GetEventMask v="don&amp;apos;t generate code" />
@@ -336,34 +356,40 @@ PE_DEBUGHALT();
             <TurnRxOn v="don&amp;apos;t generate code" />
             <TurnRxOff v="don&amp;apos;t generate code" />
             <ConnectPin v="don&amp;apos;t generate code" />
-            <Main v="generate code" />
+            <Main v="don&amp;apos;t generate code" />
             <SetOperationMode v="don&amp;apos;t generate code" />
             <GetDriverState v="don&amp;apos;t generate code" />
           </Methods>
           <Events>
             <Event_module_name v="Events" />
-            <event name="OnBlockReceived" v="don&amp;apos;t generate code" />
-            <event name="OnBlockSent" v="don&amp;apos;t generate code" />
+            <event name="OnBlockReceived" v="generate code">
+              <Event_procedure_name v="ASerialLdd1_OnBlockReceived" />
+            </event>
+            <event name="OnBlockSent" v="generate code">
+              <Event_procedure_name v="ASerialLdd1_OnBlockSent" />
+            </event>
             <event name="OnBreak" v="generate code">
               <Event_procedure_name v="ASerialLdd1_OnBreak" />
             </event>
-            <event name="OnError" v="don&amp;apos;t generate code" />
+            <event name="OnError" v="generate code">
+              <Event_procedure_name v="ASerialLdd1_OnError" />
+            </event>
             <event name="OnTxComplete" v="don&amp;apos;t generate code" />
           </Events>
         </inhrbean>
       </group>
     </Properties>
     <Methods>
-      <Enable v="don&amp;apos;t generate code" />
-      <Disable v="don&amp;apos;t generate code" />
+      <Enable v="generate code" />
+      <Disable v="generate code" />
       <EnableEvent v="don&amp;apos;t generate code" />
       <DisableEvent v="don&amp;apos;t generate code" />
       <RecvChar v="generate code" />
       <SendChar v="generate code" />
-      <RecvBlock v="don&amp;apos;t generate code" />
-      <SendBlock v="don&amp;apos;t generate code" />
-      <ClearRxBuf v="don&amp;apos;t generate code" />
-      <ClearTxBuf v="don&amp;apos;t generate code" />
+      <RecvBlock v="generate code" />
+      <SendBlock v="generate code" />
+      <ClearRxBuf v="generate code" />
+      <ClearTxBuf v="generate code" />
       <CharsInRxBuf v="don&amp;apos;t generate code" />
       <GetCharsInRxBuf v="generate code" />
       <CharsInTxBuf v="don&amp;apos;t generate code" />
@@ -383,12 +409,27 @@ PE_DEBUGHALT();
       <Event_module_name v="Events" />
       <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
       <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
-      <event name="OnError" v="don&amp;apos;t generate code" />
-      <event name="OnRxChar" v="don&amp;apos;t generate code" />
+      <event name="OnError" v="generate code">
+        <Event_procedure_name v="AS1_OnError" />
+        <Priority v="same as interrupt" />
+      </event>
+      <event name="OnRxChar" v="generate code">
+        <Event_procedure_name v="AS1_OnRxChar" />
+        <Priority v="same as interrupt" />
+      </event>
       <event name="OnRxCharExt" v="don&amp;apos;t generate code" />
-      <event name="OnTxChar" v="don&amp;apos;t generate code" />
-      <event name="OnFullRxBuf" v="don&amp;apos;t generate code" />
-      <event name="OnFreeTxBuf" v="don&amp;apos;t generate code" />
+      <event name="OnTxChar" v="generate code">
+        <Event_procedure_name v="AS1_OnTxChar" />
+        <Priority v="same as interrupt" />
+      </event>
+      <event name="OnFullRxBuf" v="generate code">
+        <Event_procedure_name v="AS1_OnFullRxBuf" />
+        <Priority v="same as interrupt" />
+      </event>
+      <event name="OnFreeTxBuf" v="generate code">
+        <Event_procedure_name v="AS1_OnFreeTxBuf" />
+        <Priority v="same as interrupt" />
+      </event>
       <event name="OnBreak" v="don&amp;apos;t generate code" />
       <event name="OnTxComplete" v="don&amp;apos;t generate code" />
     </Events>
@@ -495,9 +536,7 @@ PE_DEBUGHALT();
       <boolgroup name="History" v="no" />
       <Mutex v="no" />
       <SDK v="MCUC1" />
-      <boolgroup name="Default Serial" v="Enabled">
-        <Console_Interface v="AS1" />
-      </boolgroup>
+      <boolgroup name="Default Serial" v="Disabled" />
       <Utility v="UTIL1" />
       <XFormat v="XF1" />
       <Critical_Section v="CS1" />

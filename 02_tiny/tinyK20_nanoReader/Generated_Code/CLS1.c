@@ -7,7 +7,7 @@
 **     Version     : Component 01.095, Driver 01.00, CPU db: 3.00.000
 **     Repository  : My Components
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-03, 15:32, # CodeGen: 1
+**     Date/Time   : 2018-04-04, 13:18, # CodeGen: 13
 **     Abstract    :
 **
 **     Settings    :
@@ -29,7 +29,7 @@
 **          Mutex                                          : no
 **          SDK                                            : MCUC1
 **          Default Serial                                 : Enabled
-**            Console Interface                            : AS1
+**            Console Interface                            : RTT1
 **          Utility                                        : UTIL1
 **          XFormat                                        : XF1
 **          Critical Section                               : CS1

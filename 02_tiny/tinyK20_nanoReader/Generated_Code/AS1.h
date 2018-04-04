@@ -7,7 +7,7 @@
 **     Version     : Component 02.611, Driver 01.01, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-03, 17:58, # CodeGen: 5
+**     Date/Time   : 2018-04-04, 13:12, # CodeGen: 12
 **     Abstract    :
 **         This component "AsynchroSerial" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -20,13 +20,13 @@
 **          Channel                                        : UART0
 **          Interrupt service/event                        : Enabled
 **            Interrupt RxD                                : INT_UART0_RX_TX
-**            Interrupt RxD priority                       : medium priority
+**            Interrupt RxD priority                       : 1
 **            Interrupt TxD                                : INT_UART0_RX_TX
-**            Interrupt TxD priority                       : medium priority
+**            Interrupt TxD priority                       : 1
 **            Interrupt Error                              : INT_UART0_ERR
 **            Interrupt Error priority                     : medium priority
-**            Input buffer size                            : 2048
-**            Output buffer size                           : 2048
+**            Input buffer size                            : 128
+**            Output buffer size                           : 128
 **            Handshake                                    : 
 **              CTS                                        : Disabled
 **              RTS                                        : Disabled
@@ -58,6 +58,8 @@
 **          Referenced components                          : 
 **            Serial_LDD                                   : Serial_LDD
 **     Contents    :
+**         Enable          - byte AS1_Enable(void);
+**         Disable         - byte AS1_Disable(void);
 **         RecvChar        - byte AS1_RecvChar(AS1_TComData *Chr);
 **         SendChar        - byte AS1_SendChar(AS1_TComData Chr);
 **         RecvBlock       - byte AS1_RecvBlock(AS1_TComData *Ptr, word Size, word *Rcv);
@@ -151,9 +153,42 @@ extern "C" {
   typedef byte AS1_TComData;           /* User type for communication. Size of this type depends on the communication data witdh */
 #endif
 
-#define AS1_INP_BUF_SIZE  0x0800U      /* Length of the RX buffer */
+#define AS1_INP_BUF_SIZE  0x80U        /* Length of the RX buffer */
 
-#define AS1_OUT_BUF_SIZE  0x0800U      /* Length of the TX buffer */
+#define AS1_OUT_BUF_SIZE  0x80U        /* Length of the TX buffer */
+
+/*
+** ===================================================================
+**     Method      :  AS1_Enable (component AsynchroSerial)
+**     Description :
+**         Enables the component - it starts the send and receive
+**         functions. Events may be generated
+**         ("DisableEvent"/"EnableEvent").
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+byte AS1_Enable(void);
+
+/*
+** ===================================================================
+**     Method      :  AS1_Disable (component AsynchroSerial)
+**     Description :
+**         Disables the component - it stops the send and receive
+**         functions. No events will be generated.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+byte AS1_Disable(void);
 
 /*
 ** ===================================================================

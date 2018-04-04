@@ -63,10 +63,10 @@
 #define REGION_OPEN         0xFF
 
 //typedefs
-uint8_t _head = 0;
+extern uint8_t _head;
 
 /*! \brief Serial driver initialization */
-uint8_t msg[MAX_MSG_SIZE];
+extern uint8_t msg[MAX_MSG_SIZE];
 
 void NanoInit(void);
 void nanoSetBaud(long baudRate);
