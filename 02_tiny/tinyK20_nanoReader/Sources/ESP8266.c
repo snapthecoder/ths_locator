@@ -171,16 +171,16 @@ uint8_t ESP_Restart(const CLS1_StdIOType *io, uint16_t timeoutMs) {
 }
 
 uint8_t ESP_OpenConnection(int8_t ch_id, bool isTCP, const uint8_t *IPAddrStr, uint16_t port, uint16_t msTimeout, const CLS1_StdIOType *io) {
-  /* AT+CIPSTART=4,"TCP","184.106.153.149",80 */
+  /* AT+CIPSTART=4,"TCP","184.106.153.149",80 */ //AT+CIPSTART="TCP","192.168.3.116",8080
   uint8_t txBuf[54];
   uint8_t rxBuf[72];
   uint8_t expected[72];
 
   UTIL1_strcpy(txBuf, sizeof(txBuf), "AT+CIPSTART=");
-  if (ch_id>=0) {
+  /*if (ch_id>=0) {
     UTIL1_strcatNum16u(txBuf, sizeof(txBuf), ch_id);
     UTIL1_chcat(txBuf, sizeof(txBuf), ',');
-  }
+  }*/
   if (isTCP) {
     UTIL1_strcat(txBuf, sizeof(txBuf), "\"TCP\",\"");
   } else {
@@ -265,7 +265,7 @@ uint8_t ESP_SelectMode(uint8_t mode) {
   /* AT+CWMODE=<mode>, where <mode> is 1=Sta, 2=AP or 3=both */
   uint8_t txBuf[sizeof("AT+CWMODE=x\r\n")];
   uint8_t rxBuf[sizeof("AT+CWMODE=x\r\r\nno change\r\n")];
-  uint8_t expected[sizeof("AT+CWMODE=x\r\r\nno change\r\n")];
+  uint8_t expected[sizeof("AT+CWMODE=3\r\r\n\r\nOK\r\n")]; //chaneged AT+CWMODE=x\r\r\nno change\r\n
   uint8_t res;
 
   if (mode<1 || mode>3) {
@@ -276,7 +276,7 @@ uint8_t ESP_SelectMode(uint8_t mode) {
   UTIL1_strcat(txBuf, sizeof(txBuf), "\r\n");
   UTIL1_strcpy(expected, sizeof(expected), "AT+CWMODE=");
   UTIL1_strcatNum16u(expected, sizeof(expected), mode);
-  UTIL1_strcat(expected, sizeof(expected), "\r\r\n\n");
+  UTIL1_strcat(expected, sizeof(expected), "\r\r\n\r\nOK\r\n");
   res = ESP_SendATCommand(txBuf, rxBuf, sizeof(rxBuf), expected, ESP_DEFAULT_TIMEOUT_MS, NULL);
   if (res!=ERR_OK) {
     /* answer could be as well "AT+CWMODE=x\r\r\nno change\r\n"!! */
@@ -609,8 +609,8 @@ uint8_t ESP_PrepareMsgSend(int8_t ch_id, size_t msgSize, uint16_t msTimeout, con
   uint8_t cmd[24], rxBuf[48], expected[48];
 
   UTIL1_strcpy(cmd, sizeof(cmd), "AT+CIPSEND="); /* parameters are <ch_id>,<size> */
-  UTIL1_strcatNum8u(cmd, sizeof(cmd), ch_id);
-  UTIL1_chcat(cmd, sizeof(cmd), ',');
+  //UTIL1_strcatNum8u(cmd, sizeof(cmd), ch_id);  //just size no ID
+  //UTIL1_chcat(cmd, sizeof(cmd), ',');
   UTIL1_strcatNum16u(cmd, sizeof(cmd), msgSize);
   UTIL1_strcpy(expected, sizeof(expected), cmd); /* we expect the echo of our command */
   UTIL1_strcat(expected, sizeof(expected), "\r\r\n> "); /* expect "> " */

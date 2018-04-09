@@ -135,13 +135,13 @@ PE_DEBUGHALT();
             <Template v="LEDpin" />
             <Properties>
               <Component_name v="LEDpin1" />
-              <Pin_for_I_O v="EXTAL0/PTA18/FTM0_FLT2/FTM_CLKIN0" />
+              <Pin_for_I_O v="PTD4/LLWU_P14/SPI0_PCS1/UART0_RTS_b/FTM0_CH4/EWM_IN" />
               <inhrbean type="BitIO_LDD">
                 <Enabled v="Y" />
                 <Template v="BitIO_LDD" />
                 <Properties>
                   <Component_name v="BitIoLdd1" />
-                  <Pin_for_I_O v="EXTAL0/PTA18/FTM0_FLT2/FTM_CLKIN0" />
+                  <Pin_for_I_O v="PTD4/LLWU_P14/SPI0_PCS1/UART0_RTS_b/FTM0_CH4/EWM_IN" />
                   <Direction v="Output" />
                   <group name="Initialization">
                     <Init__direction v="Output" />
@@ -252,10 +252,10 @@ PE_DEBUGHALT();
         <Width v="8 bits" />
         <Stop_bit v="1" />
         <boolgroup name="Receiver" v="Enabled">
-          <RxD v="ADC0_SE7b/PTD6/LLWU_P15/SPI0_PCS3/UART0_RX/FTM0_CH6/FTM0_FLT0" />
+          <RxD v="TSI0_CH9/PTB16/UART0_RX/EWM_IN" />
         </boolgroup>
         <boolgroup name="Transmitter" v="Enabled">
-          <TxD v="PTD7/CMT_IRO/UART0_TX/FTM0_CH7/FTM0_FLT1" />
+          <TxD v="TSI0_CH10/PTB17/UART0_TX/EWM_OUT_b" />
         </boolgroup>
         <Baud_rate v="115200 baud" />
         <Break_signal v="Disabled" />
@@ -302,10 +302,10 @@ PE_DEBUGHALT();
               <Receiver_input v="Not inverted" />
               <Break_generation_length v="10/11 bits" />
               <boolgroup name="Receiver" v="Enabled">
-                <RxD v="ADC0_SE7b/PTD6/LLWU_P15/SPI0_PCS3/UART0_RX/FTM0_CH6/FTM0_FLT0" />
+                <RxD v="TSI0_CH9/PTB16/UART0_RX/EWM_IN" />
               </boolgroup>
               <boolgroup name="Transmitter" v="Enabled">
-                <TxD v="PTD7/CMT_IRO/UART0_TX/FTM0_CH7/FTM0_FLT1" />
+                <TxD v="TSI0_CH10/PTB17/UART0_TX/EWM_OUT_b" />
               </boolgroup>
               <enumgroup name="Flow control" v="None">
                 <EmptySection_DummyValue />

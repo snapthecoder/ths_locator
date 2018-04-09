@@ -75,7 +75,7 @@
       <XtraAge13>1283685405</XtraAge13>
       <XtraAge14>1283746377</XtraAge14>
       <XtraAge15>1283685676</XtraAge15>
-      <XtraAge21>1283760394</XtraAge21>
+      <XtraAge21>1284069210</XtraAge21>
       <XtraAge22>1283760394</XtraAge22>
       <XtraAge24>1283685143</XtraAge24>
       <XtraAge25>1283760490</XtraAge25>
@@ -436,7 +436,7 @@
     </GenFiles>
     <SignalListFile>Documentation\tinyK20_nanoReader_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>15</ProjectModificationStamp>
+    <ProjectModificationStamp>17</ProjectModificationStamp>
   </Options>
   <CpuID_5>
     <Generated>true</Generated>
@@ -445,7 +445,7 @@
     <GenDriverVersion>01.04</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
     <HeaderAge>1283685405</HeaderAge>
-    <CodeAge>1283760394</CodeAge>
+    <CodeAge>1284069210</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>14</GenNumMethods>
     <SetClockConfiguration>false</SetClockConfiguration>
@@ -665,8 +665,8 @@
       <GenComponentVersion>02.086</GenComponentVersion>
       <GenDriverVersion>01.00</GenDriverVersion>
       <GenEventModule />
-      <HeaderAge>1283685405</HeaderAge>
-      <CodeAge>1283685405</CodeAge>
+      <HeaderAge>1284069210</HeaderAge>
+      <CodeAge>1284069210</CodeAge>
       <AsemblAge>-1</AsemblAge>
       <GenNumMethods>11</GenNumMethods>
       <GetDir>false</GetDir>
@@ -748,8 +748,8 @@
         <GenComponentVersion>01.033</GenComponentVersion>
         <GenDriverVersion>01.03</GenDriverVersion>
         <GenEventModule />
-        <HeaderAge>1283685405</HeaderAge>
-        <CodeAge>1283685405</CodeAge>
+        <HeaderAge>1284069210</HeaderAge>
+        <CodeAge>1284069210</CodeAge>
         <AsemblAge>-1</AsemblAge>
         <GenNumMethods>13</GenNumMethods>
         <Init>true</Init>
@@ -869,8 +869,8 @@
     <GenComponentVersion>02.611</GenComponentVersion>
     <GenDriverVersion>01.01</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1283746184</HeaderAge>
-    <CodeAge>1283746184</CodeAge>
+    <HeaderAge>1284069210</HeaderAge>
+    <CodeAge>1284069210</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>24</GenNumMethods>
     <Enable>true</Enable>
@@ -1156,8 +1156,8 @@
       <GenComponentVersion>01.188</GenComponentVersion>
       <GenDriverVersion>01.12</GenDriverVersion>
       <GenEventModule>Events</GenEventModule>
-      <HeaderAge>1283746184</HeaderAge>
-      <CodeAge>1283746184</CodeAge>
+      <HeaderAge>1284069210</HeaderAge>
+      <CodeAge>1284069210</CodeAge>
       <AsemblAge>-1</AsemblAge>
       <GenNumMethods>36</GenNumMethods>
       <Init>true</Init>

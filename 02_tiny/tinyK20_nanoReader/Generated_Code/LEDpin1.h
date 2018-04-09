@@ -7,7 +7,7 @@
 **     Version     : Component 02.086, Driver 01.00, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-03, 15:32, # CodeGen: 1
+**     Date/Time   : 2018-04-09, 10:58, # CodeGen: 22
 **     Abstract    :
 **         This component "BitIO" implements an one-bit input/output.
 **         It uses one bit/pin of a port.
@@ -16,7 +16,7 @@
 **         (if supported by target language and compiler).
 **     Settings    :
 **          Component name                                 : LEDpin1
-**          Pin for I/O                                    : EXTAL0/PTA18/FTM0_FLT2/FTM_CLKIN0
+**          Pin for I/O                                    : PTD4/LLWU_P14/SPI0_PCS1/UART0_RTS_b/FTM0_CH4/EWM_IN
 **          Pin signal                                     : 
 **          BitIO_LDD                                      : BitIO_LDD
 **          Direction                                      : Output

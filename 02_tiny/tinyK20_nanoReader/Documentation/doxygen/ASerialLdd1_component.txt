@@ -21,12 +21,12 @@ by the component.
 <tr><td>0x40048034</td><td>SIM_SCGC4</td>
 <td class="regNotResetVal">0xF0100430</td>
  <td>SIM_SCGC4 register, peripheral ASerialLdd1.</td></tr>
-<tr><td>0x4004C018</td><td>PORTD_PCR6</td>
+<tr><td>0x4004A040</td><td>PORTB_PCR16</td>
 <td class="regNotResetVal">0x00000300</td>
- <td>PORTD_PCR6 register, peripheral ASerialLdd1.</td></tr>
-<tr><td>0x4004C01C</td><td>PORTD_PCR7</td>
+ <td>PORTB_PCR16 register, peripheral ASerialLdd1.</td></tr>
+<tr><td>0x4004A044</td><td>PORTB_PCR17</td>
 <td class="regNotResetVal">0x00000300</td>
- <td>PORTD_PCR7 register, peripheral ASerialLdd1.</td></tr>
+ <td>PORTB_PCR17 register, peripheral ASerialLdd1.</td></tr>
 <tr><td>0xE000E410</td><td>NVICIP16</td>
 <td class="regNotResetVal">0x00000010</td>
  <td>NVICIP16 register, peripheral ASerialLdd1.</td></tr>
@@ -118,7 +118,7 @@ registers of the peripheral(s) configured by the component.
 <tr><td>2</td><td>CMT</td><td>0x00</td><td>CMT Clock Gate Control</td>
 <tr><td>1</td><td>EWM</td><td>0x00</td><td>EWM Clock Gate Control</td>
 </tr></table>
-<div class="reghdr1">PORTD_PCR6</div>
+<div class="reghdr1">PORTB_PCR16</div>
 <div class="regdiag">
 <table class="regtbl">
 <tr class="trd1r">
@@ -162,7 +162,7 @@ registers of the peripheral(s) configured by the component.
 </table>
         
 </div>
-<table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4004C018</td></tr>
+<table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4004A040</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000300</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
@@ -177,7 +177,7 @@ registers of the peripheral(s) configured by the component.
 <tr><td>1</td><td>PE</td><td>0x00</td><td>Pull Enable</td>
 <tr><td>0</td><td>PS</td><td>0x00</td><td>Pull Select</td>
 </tr></table>
-<div class="reghdr1">PORTD_PCR7</div>
+<div class="reghdr1">PORTB_PCR17</div>
 <div class="regdiag">
 <table class="regtbl">
 <tr class="trd1r">
@@ -221,7 +221,7 @@ registers of the peripheral(s) configured by the component.
 </table>
         
 </div>
-<table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4004C01C</td></tr>
+<table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4004A044</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000300</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
@@ -510,10 +510,10 @@ registers of the peripheral(s) configured by the component.
 **            Receiver input                               : Not inverted
 **            Break generation length                      : 10/11 bits
 **            Receiver                                     : Enabled
-**              RxD                                        : ADC0_SE7b/PTD6/LLWU_P15/SPI0_PCS3/UART0_RX/FTM0_CH6/FTM0_FLT0
+**              RxD                                        : TSI0_CH9/PTB16/UART0_RX/EWM_IN
 **              RxD pin signal                             : 
 **            Transmitter                                  : Enabled
-**              TxD                                        : PTD7/CMT_IRO/UART0_TX/FTM0_CH7/FTM0_FLT1
+**              TxD                                        : TSI0_CH10/PTB17/UART0_TX/EWM_OUT_b
 **              TxD pin signal                             : 
 **            Flow control                                 : None
 **          Initialization                                 : 
