@@ -14,7 +14,7 @@
 static const CLS1_ParseCommandCallback CmdParserTable[] =
 {
   CLS1_ParseCommand,
-  ESP_ParseCommand,
+  //ESP_ParseCommand,
   NANO_ParseCommand,
   NULL /* sentinel */
 };

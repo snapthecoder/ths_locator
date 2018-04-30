@@ -398,11 +398,13 @@ uint8_t ESP_GetCIPMUXString(uint8_t *cipmuxBuf, size_t cipmuxBufSize) {
 
 uint8_t ESP_GetConnectedAPString(uint8_t *apBuf, size_t apBufSize) {
   /* AT+CWJAP? */
-  uint8_t rxBuf[48];
+  uint8_t rxBuf[80];
   uint8_t res;
   const unsigned char *p;
 
-  res = ESP_SendATCommand("AT+CWJAP?\r\n", rxBuf, sizeof(rxBuf), NULL, ESP_DEFAULT_TIMEOUT_MS, NULL);
+  res = ESP_SendATCommand("AT+CWJAP?\r\n", rxBuf, sizeof(rxBuf), "\r\nOK\r\n" , ESP_DEFAULT_TIMEOUT_MS, NULL);
+  UTIL1_strcpy(apBuf, apBufSize, p); /* copy IP information string */
+
   if (res==ERR_OK) {
     if (UTIL1_strncmp(rxBuf, "AT+CWJAP?\r\r\n+CWJAP:\"", sizeof("AT+CWJAP?\r\r\n+CWJAP:\"")-1)==0) { /* check for beginning of response */
       UTIL1_strCutTail(rxBuf, "\"\r\n\r\nOK\r\n"); /* cut tailing response */
@@ -415,6 +417,7 @@ uint8_t ESP_GetConnectedAPString(uint8_t *apBuf, size_t apBufSize) {
   if (res!=ERR_OK) {
     UTIL1_strcpy(apBuf, apBufSize, "ERROR");
   }
+
   return res;
 
 }

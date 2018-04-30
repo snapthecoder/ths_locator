@@ -915,7 +915,7 @@ void Serial_print(const char *msg) {
 
 
 static uint8_t NANO_PrintHelp(const CLS1_StdIOType *io) {
-  CLS1_SendHelpStr("Nano M6e", "Nano M6e commands\r\n", io->stdOut);
+  CLS1_SendHelpStr("Nano", "Nano commands\r\n", io->stdOut);
   CLS1_SendHelpStr("  help|status", "Print help or status information\r\n", io->stdOut);
   CLS1_SendHelpStr("  set read power <value>", "Set read power to a value\r\n", io->stdOut);
   CLS1_SendHelpStr("  set write power <value>", "Set write power to a value\r\n", io->stdOut);
@@ -927,10 +927,12 @@ static uint8_t NANO_PrintHelp(const CLS1_StdIOType *io) {
 static uint8_t NANO_PrintStatus(const CLS1_StdIOType *io) {
   uint8_t buf[24];
 
-  CLS1_SendStatusStr("ThingSpeak", "\r\n", io->stdOut);
-  CLS1_SendStatusStr("  Baudrate", "\r\n", io->stdOut);
+  CLS1_SendStatusStr("not implemented yet", "\r\n", io->stdOut);
+  //CLS1_SendStatusStr("ThingSpeak", "\r\n", io->stdOut);
+  //CLS1_SendStatusStr("  Baudrate", "\r\n", io->stdOut);
+
   //TODO read temp from nano
-  CLS1_SendStatusStr("  Temp", "\r\n", io->stdOut);
+  //CLS1_SendStatusStr("  Temp", "\r\n", io->stdOut);
   return ERR_OK;
 }
 
@@ -939,26 +941,26 @@ uint8_t NANO_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_St
   uint8_t res;
   const unsigned char *p;
 
-  if (UTIL1_strcmp((char*)cmd, CLS1_CMD_HELP)==0 || UTIL1_strcmp((char*)cmd, "Nano M6e help")==0) {
+  if (UTIL1_strcmp((char*)cmd, CLS1_CMD_HELP)==0 || UTIL1_strcmp((char*)cmd, "Nano help")==0) {
     *handled = TRUE;
     res = NANO_PrintHelp(io);
-  } else if (UTIL1_strcmp((char*)cmd, CLS1_CMD_STATUS)==0 || UTIL1_strcmp((char*)cmd, "Nano M6e status")==0) {
+  } else if (UTIL1_strcmp((char*)cmd, CLS1_CMD_STATUS)==0 || UTIL1_strcmp((char*)cmd, "Nano status")==0) {
     *handled = TRUE;
     res = NANO_PrintStatus(io);
-  } else if (UTIL1_strcmp((char*)cmd, "start reading")==0 || UTIL1_strcmp((char*)cmd, "start reading")==0) {
+  } else if (UTIL1_strcmp((char*)cmd, "Nano start")==0) {
 	*handled = TRUE;
 	nanoStartReading();
 	res = ERR_OK;
 	CLS1_SendStr("Reader Started!\r\n", io->stdOut);
-  } else if (UTIL1_strcmp((char*)cmd, "stop reading")==0 || UTIL1_strcmp((char*)cmd, "stop reading")==0) {
+  } else if (UTIL1_strcmp((char*)cmd, "Nano stop")==0) {
 	*handled = TRUE;
 	nanoStopReading();
 	res = ERR_OK;
 	CLS1_SendStr("Reader Stopped!\r\n", io->stdOut);
-} else if (UTIL1_strcmp((char*)cmd, "read once")==0 || UTIL1_strcmp((char*)cmd, "read once")==0) {
+} else if (UTIL1_strcmp((char*)cmd, "Nano once")==0) {
 	*handled = TRUE;
 	nanoStartReading();
-	WAIT1_Waitus(100);
+	WAIT1_Waitus(10);
 	nanoStopReading();
 	nanoCheck();
 	nanoPrintStatus();

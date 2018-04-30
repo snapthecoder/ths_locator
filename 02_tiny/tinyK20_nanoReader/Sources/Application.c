@@ -89,6 +89,7 @@ void APP_Start(void) {
 	  for(;;){
 		  //if reader is started search for TSHs
 		  //if (Reader_Start) nanoProcess(io);
+		  nanoProcess(io);
 		  //check for new commands over serial
 		  SHELL_Parse();
 		  //check for new commands over tcp
