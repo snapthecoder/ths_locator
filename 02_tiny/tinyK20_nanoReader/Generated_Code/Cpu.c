@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P48M50SF0RM Rev. 1, Oct 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-09, 10:58, # CodeGen: 22
+**     Date/Time   : 2018-04-09, 20:16, # CodeGen: 26
 **     Abstract    :
 **
 **     Settings    :
@@ -311,6 +311,7 @@
 #include "TMOUT1.h"
 #include "AS2.h"
 #include "ASerialLdd2.h"
+#include "TmDt1.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -397,10 +398,8 @@ void __init_hardware(void)
   SIM_CLKDIV1 = SIM_CLKDIV1_OUTDIV1(0x00) |
                 SIM_CLKDIV1_OUTDIV2(0x01) |
                 SIM_CLKDIV1_OUTDIV4(0x03); /* Set the system prescalers to safe value */
-  /* SIM_SCGC5: PORTD=1,PORTB=1,PORTA=1 */
-  SIM_SCGC5 |= SIM_SCGC5_PORTD_MASK |
-               SIM_SCGC5_PORTB_MASK |
-               SIM_SCGC5_PORTA_MASK;   /* Enable clock gate for ports to enable pin routing */
+  /* SIM_SCGC5: PORTD=1,PORTA=1 */
+  SIM_SCGC5 |= (SIM_SCGC5_PORTD_MASK | SIM_SCGC5_PORTA_MASK); /* Enable clock gate for ports to enable pin routing */
   if ((PMC_REGSC & PMC_REGSC_ACKISO_MASK) != 0x0U) {
     /* PMC_REGSC: ACKISO=1 */
     PMC_REGSC |= PMC_REGSC_ACKISO_MASK; /* Release IO pads after wakeup from VLLS mode. */
@@ -537,6 +536,10 @@ void PE_low_level_init(void)
   TMOUT1_Init();
   /* ### Asynchro serial "AS2" init code ... */
   AS2_Init();
+  /* ### GenericTimeDate "TmDt1" init code ... */
+#if TmDt1_INIT_IN_STARTUP
+  (void)TmDt1_Init();
+#endif
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

@@ -50,6 +50,7 @@
 #include "TMOUT1.h"
 #include "AS2.h"
 #include "ASerialLdd2.h"
+#include "TmDt1.h"
 #include "nano.h"
 #include "CLS1.h"
 #include "Shell.h"
@@ -63,26 +64,22 @@ int main(void)
 /*lint -restore Enable MISRA rule (6.3) checking. */
 {
   /* Write your local variable definition here */
-
   /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
   PE_low_level_init();
   /*** End of Processor Expert internal initialization.                    ***/
 
-  /* Write your code here */
-  /* For example: for(;;) { } */
 
-  //wait after power-on
-  WAIT1_Waitms(1000);
-  //blink led, means startup sucessfull
-  for(int x=0;x<5;x++){
+  //wait after power-on 500ms
+  WAIT1_Waitms(500);
+
+  //blink led, means startup ok
+  for(int x=0;x<3;x++){
   	  LED1_Neg();
   	  WAIT1_Waitms(500);
   }
 
 
   APP_Start();
-
-
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/

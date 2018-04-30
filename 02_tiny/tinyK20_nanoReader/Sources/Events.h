@@ -48,6 +48,7 @@
 #include "TMOUT1.h"
 #include "AS2.h"
 #include "ASerialLdd2.h"
+#include "TmDt1.h"
 
 #ifdef __cplusplus
 extern "C" {

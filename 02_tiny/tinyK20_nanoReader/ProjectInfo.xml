@@ -67,6 +67,7 @@
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\SEGGER_RTT.c</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\SEGGER_RTT_printf.c</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\TMOUT1.c</PathName>
+      <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\TmDt1.c</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\UTIL1.c</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\Vectors.c</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\WAIT1.c</PathName>
@@ -106,6 +107,8 @@
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\SEGGER_RTT_Conf.h</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\TMOUT1.h</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\TMOUT1config.h</PathName>
+      <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\TmDt1.h</PathName>
+      <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\TmDt1config.h</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\UTIL1.h</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\UTIL1config.h</PathName>
       <PathName>C:\BAT\GIT\02_tiny\tinyK20_nanoReader\Generated_Code\WAIT1.h</PathName>

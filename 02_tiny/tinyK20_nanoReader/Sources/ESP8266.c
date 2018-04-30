@@ -118,6 +118,9 @@ uint8_t ESP_SendATCommand(uint8_t *cmd, uint8_t *rxBuf, size_t rxBufSize, uint8_
   uint16_t snt;
   uint8_t res = ERR_OK;
 
+  //clear rxbuffer of uart
+  AS2_ClearRxBuf();
+
   if (rxBuf!=NULL) {
     rxBuf[0] = '\0';
   }
@@ -130,7 +133,7 @@ uint8_t ESP_SendATCommand(uint8_t *cmd, uint8_t *rxBuf, size_t rxBufSize, uint8_
   }
   if (rxBuf!=NULL) {
     res = RxResponse(rxBuf, rxBufSize, expectedTailStr, msTimeout);
-    if (io!=NULL) {
+     if (io!=NULL) {
       CLS1_SendStr("received<<:\r\n", io->stdOut);
       CLS1_SendStr(rxBuf, io->stdOut);
     }
@@ -322,7 +325,7 @@ uint8_t ESP_GetFirmwareVersionString(uint8_t *fwBuf, size_t fwBufSize) {
 
 uint8_t ESP_GetIPAddrString(uint8_t *ipBuf, size_t ipBufSize) {
   /* AT+CIFSR */
-  uint8_t rxBuf[32];
+  uint8_t rxBuf[36];
   uint8_t res;
   const unsigned char *p;
 
@@ -334,7 +337,7 @@ uint8_t ESP_GetIPAddrString(uint8_t *ipBuf, size_t ipBufSize) {
   }
   if (res==ERR_OK) {
     if (UTIL1_strncmp(rxBuf, "AT+CIFSR\r\r\n", sizeof("AT+CIFSR\r\r\n")-1)==0) { /* check for beginning of response */
-      UTIL1_strCutTail(rxBuf, "\r\n"); /* cut tailing response */
+      UTIL1_strCutTail(rxBuf, "\r\n+"); /* cut tailing response */
       p = rxBuf+sizeof("AT+CIFSR\r\r\n")-1; /* skip beginning */
       SkipNewLines(&p);
       UTIL1_strcpy(ipBuf, ipBufSize, p); /* copy IP information string */
@@ -399,7 +402,7 @@ uint8_t ESP_GetConnectedAPString(uint8_t *apBuf, size_t apBufSize) {
   uint8_t res;
   const unsigned char *p;
 
-  res = ESP_SendATCommand("AT+CWJAP?\r\n", rxBuf, sizeof(rxBuf), "\r\n\r\nOK\r\n", ESP_DEFAULT_TIMEOUT_MS, NULL);
+  res = ESP_SendATCommand("AT+CWJAP?\r\n", rxBuf, sizeof(rxBuf), NULL, ESP_DEFAULT_TIMEOUT_MS, NULL);
   if (res==ERR_OK) {
     if (UTIL1_strncmp(rxBuf, "AT+CWJAP?\r\r\n+CWJAP:\"", sizeof("AT+CWJAP?\r\r\n+CWJAP:\"")-1)==0) { /* check for beginning of response */
       UTIL1_strCutTail(rxBuf, "\"\r\n\r\nOK\r\n"); /* cut tailing response */
@@ -645,6 +648,7 @@ static uint8_t ESP_PrintStatus(const CLS1_StdIOType *io) {
   }
   CLS1_SendStatusStr("  AT+GMR", buf, io->stdOut);
 
+  WAIT1_Waitms(10);
   if (ESP_GetModeString(buf, sizeof(buf)) != ERR_OK) {
     UTIL1_strcpy(buf, sizeof(buf), "FAILED\r\n");
   } else {
@@ -661,6 +665,7 @@ static uint8_t ESP_PrintStatus(const CLS1_StdIOType *io) {
   }
   CLS1_SendStatusStr("  AT+CWMODE?", buf, io->stdOut);
 
+  WAIT1_Waitms(10);
   if (ESP_GetIPAddrString(buf, sizeof(buf)) != ERR_OK) {
     UTIL1_strcpy(buf, sizeof(buf), "FAILED\r\n");
   } else {
@@ -668,6 +673,7 @@ static uint8_t ESP_PrintStatus(const CLS1_StdIOType *io) {
   }
   CLS1_SendStatusStr("  AT+CIFSR", buf, io->stdOut);
 
+  WAIT1_Waitms(10);
   if (ESP_GetConnectedAPString(buf, sizeof(buf)) != ERR_OK) {
     UTIL1_strcpy(buf, sizeof(buf), "FAILED\r\n");
   } else {
@@ -675,6 +681,7 @@ static uint8_t ESP_PrintStatus(const CLS1_StdIOType *io) {
   }
   CLS1_SendStatusStr("  AT+CWJAP?", buf, io->stdOut);
 
+  WAIT1_Waitms(10);
   if (ESP_GetCIPMUXString(buf, sizeof(buf)) != ERR_OK) {
     UTIL1_strcpy(buf, sizeof(buf), "FAILED\r\n");
   } else {
@@ -697,12 +704,13 @@ uint8_t ESP_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_Std
   const unsigned char *p;
   uint8_t pwd[24], ssid[24];
 
+  //Print help
   if (UTIL1_strcmp((char*)cmd, CLS1_CMD_HELP)==0 || UTIL1_strcmp((char*)cmd, "ESP help")==0) {
     *handled = TRUE;
     res = ESP_PrintHelp(io);
   } else if (UTIL1_strcmp((char*)cmd, CLS1_CMD_STATUS)==0 || UTIL1_strcmp((char*)cmd, "ESP status")==0) {
     *handled = TRUE;
-    res = ESP_PrintStatus(io);
+    res = ESP_PrintStatus(io); //print status
   } else if (UTIL1_strncmp((char*)cmd, "ESP send ", sizeof("ESP send ")-1)==0) {
     *handled = TRUE;
     p = cmd+sizeof("ESP send ")-1;

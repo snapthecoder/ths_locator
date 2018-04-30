@@ -101,6 +101,7 @@ bool nanoCheck(void);
 
 void nanoPrintStatus(void);
 static void Serial_println(const char *msg);
+void Serial_print(const char *msg);
 
 uint8_t NANO_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_StdIOType *io);
 

@@ -7,7 +7,7 @@
 **     Version     : Component 01.188, Driver 01.12, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-09, 10:58, # CodeGen: 22
+**     Date/Time   : 2018-04-09, 19:41, # CodeGen: 25
 **     Abstract    :
 **         This component "Serial_LDD" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -38,10 +38,10 @@
 **            Receiver input                               : Not inverted
 **            Break generation length                      : 10/11 bits
 **            Receiver                                     : Enabled
-**              RxD                                        : TSI0_CH9/PTB16/UART0_RX/EWM_IN
+**              RxD                                        : ADC0_SE7b/PTD6/LLWU_P15/SPI0_PCS3/UART0_RX/FTM0_CH6/FTM0_FLT0
 **              RxD pin signal                             : 
 **            Transmitter                                  : Enabled
-**              TxD                                        : TSI0_CH10/PTB17/UART0_TX/EWM_OUT_b
+**              TxD                                        : PTD7/CMT_IRO/UART0_TX/FTM0_CH7/FTM0_FLT1
 **              TxD pin signal                             : 
 **            Flow control                                 : None
 **          Initialization                                 : 

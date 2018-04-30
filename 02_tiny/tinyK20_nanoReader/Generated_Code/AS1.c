@@ -7,7 +7,7 @@
 **     Version     : Component 02.611, Driver 01.01, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-09, 10:58, # CodeGen: 22
+**     Date/Time   : 2018-04-09, 19:41, # CodeGen: 25
 **     Abstract    :
 **         This component "AsynchroSerial" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -35,10 +35,10 @@
 **            Width                                        : 8 bits
 **            Stop bit                                     : 1
 **            Receiver                                     : Enabled
-**              RxD                                        : TSI0_CH9/PTB16/UART0_RX/EWM_IN
+**              RxD                                        : ADC0_SE7b/PTD6/LLWU_P15/SPI0_PCS3/UART0_RX/FTM0_CH6/FTM0_FLT0
 **              RxD pin signal                             : 
 **            Transmitter                                  : Enabled
-**              TxD                                        : TSI0_CH10/PTB17/UART0_TX/EWM_OUT_b
+**              TxD                                        : PTD7/CMT_IRO/UART0_TX/FTM0_CH7/FTM0_FLT1
 **              TxD pin signal                             : 
 **            Baud rate                                    : 115200 baud
 **            Break signal                                 : Disabled

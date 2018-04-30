@@ -17,6 +17,7 @@
 #include "PE_Types.h"
 #include "ESP8266.h"
 
+
 uint8_t _headnano = 0;
 uint8_t msg[MAX_MSG_SIZE];
 
@@ -673,16 +674,17 @@ if (waitForResponse == 0) return;
 //Wait for response with timeout
 TMOUT1_CounterHandle handle;
 
-uint32_t startTime = TMOUT1_Value(handle);
+uint32_t TimeCounter = 0;
 while (AS1_GetCharsInRxBuf() == 0)
 {
-  if (TMOUT1_Value(handle) - startTime > timeOut)
+  if (timeOut <= TimeCounter)
   {
 	msg[0] = ERROR_COMMAND_RESPONSE_TIMEOUT;
 	return;
   }
   //delay
-  WAIT1_Waitms(10);
+  WAIT1_Waitms(1);
+  TimeCounter++;
 }
 
 // Layout of response in data array:
@@ -692,13 +694,13 @@ messageLength = MAX_MSG_SIZE - 1; //Make the max length for now, adjust it when 
 uint8_t spot = 0;
 while (spot < messageLength)
 {
-  if (TMOUT1_Value(handle) - startTime > timeOut)
+  if (timeOut <= TimeCounter)
   {
 	//DEBUG TIMEOUT 2
 	msg[0] = ERROR_COMMAND_RESPONSE_TIMEOUT;
 	return;
   }
-
+  TimeCounter++;
   if (AS1_GetCharsInRxBuf() > 0)
   {
 
@@ -868,7 +870,7 @@ uint8_t parseResponse(void)
 void nanoPrintStatus(void){
 	unsigned char buf[50] = {};
 
-	Serial_println((unsigned char*)"tag found:");
+	Serial_print((unsigned char*)"tag found:");
 
 	UTIL1_strcpy(buf, sizeof(buf), (unsigned char*)"0x");
 

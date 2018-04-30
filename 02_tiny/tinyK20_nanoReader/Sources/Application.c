@@ -13,6 +13,7 @@
 #include "Shell.h"
 #include "ESP8266.h"
 
+
 #define SERVER_IP_STR "192.168.0.102"
 #define SERVER_PORT	(51298)
 
@@ -20,6 +21,7 @@
 #define SSID "dlink-4190"
 
 static uint8_t APP_EspMsgBuf[512]; /* buffer for messages from ESP8266 */
+static bool Reader_Start = 0;
 
 void nanoProcess(const CLS1_StdIOType *io){
 
@@ -31,7 +33,7 @@ void nanoProcess(const CLS1_StdIOType *io){
 		  }
 		  else if(responseType == RESPONSE_IS_TAGFOUND){
 			  nanoPrintStatus();
-			  netProcess(io);
+			  //netProcess(io);
 		  }
 	}
 }
@@ -67,34 +69,32 @@ void openESP(const CLS1_StdIOType *io){
 
 
 void APP_Start(void) {
-	  CLS1_ConstStdIOType *io = CLS1_GetStdio();
 
-	  uint8_t buf[30];
-	  UTIL1_strcpy(buf, sizeof(buf), "GATE1234567890\r\n");
+	  CLS1_ConstStdIOType *io = CLS1_GetStdio();
 
 	  CLS1_SendStr("\r\n------------------------------------------\r\n", io->stdOut);
 	  CLS1_SendStr("THS GATE\r\nFirmware Version 1.0\r\n", io->stdOut);
 	  CLS1_SendStr("------------------------------------------\r\n", io->stdOut);
 	  CLS1_PrintPrompt(io);
 
-	  //NanoInit();
+	  NanoInit();
 	  ESP_Init();
 	  SHELL_Init();
 
 	  WAIT1_Waitms(100);
 
-	  //open TCP/IP connection
-	  openESP(io);
+	  //nanoStartReading();
+	  //for future starting over webinterface
 
 	  for(;;){
-
-		  ESP_PrepareMsgSend(0, UTIL1_strlen(buf), 3000, io);
-		  ESP_SendATCommand(buf, NULL, 0, NULL, ESP_DEFAULT_TIMEOUT_MS, io);
-		  //check for tags filter response type
-		  //nanoProcess(io);
-		  //netProcess(io);
+		  //if reader is started search for TSHs
+		  //if (Reader_Start) nanoProcess(io);
+		  //check for new commands over serial
 		  SHELL_Parse();
-		  WAIT1_Waitms(100);
+		  //check for new commands over tcp
+		  //netProcess(io);
+
+		  WAIT1_Waitms(10);
 	  }
 }
 
