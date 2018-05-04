@@ -83,17 +83,17 @@ void APP_Start(void) {
 
 	  WAIT1_Waitms(100);
 
-	  //nanoStartReading();
+	  nanoStartReading();
 	  //for future starting over webinterface
 
 	  for(;;){
+
 		  //if reader is started search for TSHs
-		  //if (Reader_Start) nanoProcess(io);
-		  nanoProcess(io);
+		  if (Reader_Start) nanoProcess(io);
 		  //check for new commands over serial
 		  SHELL_Parse();
 		  //check for new commands over tcp
-		  //netProcess(io);
+		  netProcess(io);
 
 		  WAIT1_Waitms(10);
 	  }

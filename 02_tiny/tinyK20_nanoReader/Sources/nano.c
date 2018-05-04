@@ -419,6 +419,23 @@ uint8_t getTagDataBytes(void)
   return (tagDataBytes);
 }
 
+//getTagFreq
+uint8_t getTagFreq(void)
+{
+  //Frequency of the tag detected is loaded over three bytes
+  uint8_t freq = 0;
+  for (uint8_t x = 0 ; x < 3 ; x++)
+    freq |= (uint8_t)msg[14 + x] << (8 * (2 - x));
+
+  return (freq);
+}
+
+//getTagRSSI
+int8_t getTagRSSI(void)
+{
+  return (msg[12] - 256);
+}
+
 /*
 ** ===================================================================
 **     Method      :  	writeData
@@ -880,6 +897,8 @@ void nanoPrintStatus(void){
 		UTIL1_strcatNum8Hex(buf, sizeof(buf), (uint8_t*)msg[31 + x] );
 		UTIL1_strcat(buf, sizeof(buf), (unsigned char*)" " );
 	}
+	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)"," );
+	UTIL1_strcatNum8s(buf, sizeof(buf), getTagRSSI());
 
 	Serial_println((unsigned char*)buf);
 }
