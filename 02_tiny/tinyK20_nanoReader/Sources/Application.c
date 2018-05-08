@@ -14,14 +14,7 @@
 #include "ESP8266.h"
 
 
-#define SERVER_IP_STR "192.168.0.102"
-#define SERVER_PORT	(51298)
-
-#define PWD "dwlvg44571"
-#define SSID "dlink-4190"
-
 static uint8_t APP_EspMsgBuf[512]; /* buffer for messages from ESP8266 */
-static bool Reader_Start = 0;
 
 void nanoProcess(const CLS1_StdIOType *io){
 
@@ -32,8 +25,7 @@ void nanoProcess(const CLS1_StdIOType *io){
 			  //scanning
 		  }
 		  else if(responseType == RESPONSE_IS_TAGFOUND){
-			  nanoPrintStatus();
-			  //netProcess(io);
+			  nanoPrintStatus(io);
 		  }
 	}
 }
@@ -46,25 +38,26 @@ void openESP(const CLS1_StdIOType *io){
 	uint8_t ssid[10];
 	uint8_t pwd[10];
 
-	uint8_t IPAddrStr[20] = "192.168.0.102";
+	//TODO use macros
+	uint8_t IPAddrStr[20] = "192.168.0.101";
 	uint16_t port = 8000;
-	uint16_t msTimeout = 3000;
+	uint16_t msTimeout = 1000;
 
-	uint8_t gateNr = 1;
-
-	UTIL1_strcpy(ssid, sizeof(ssid), "ths_net");
+	UTIL1_strcpy(ssid, sizeof(ssid), "tsh_net");
 	UTIL1_strcpy(pwd, sizeof(pwd), "12345678");
 
-	UTIL1_strcpy(buf, sizeof(buf), "GATE");
+	//connect to AP
+	ESP_JoinAP(ssid, pwd, 4, io);
+
+	UTIL1_strcpy(buf, sizeof(buf), "GATE01");
 
 	ESP_SelectMode(3);
 
-	ESP_OpenConnection(ch_id, 1, &IPAddrStr, port, msTimeout, io);
+	ESP_OpenConnection(ch_id, 1, IPAddrStr, port, msTimeout, io);
 
 	ESP_PrepareMsgSend(ch_id, UTIL1_strlen(buf), 3000, io);
 
 	ESP_SendATCommand(buf, NULL, 0, NULL, ESP_DEFAULT_TIMEOUT_MS, io);
-
 }
 
 
@@ -83,19 +76,21 @@ void APP_Start(void) {
 
 	  WAIT1_Waitms(100);
 
-	  nanoStartReading();
+	  //nanoStartReading();
+
+	  openESP(io);
 	  //for future starting over webinterface
 
 	  for(;;){
 
 		  //if reader is started search for TSHs
-		  if (Reader_Start) nanoProcess(io);
+		  if (nanoStatus()) nanoProcess(io);
 		  //check for new commands over serial
 		  SHELL_Parse();
-		  //check for new commands over tcp
-		  netProcess(io);
 
-		  WAIT1_Waitms(10);
+		  //commands over network
+		  //ESP_Parse();
+		  WAIT1_Waitms(5);
 	  }
 }
 

@@ -99,11 +99,13 @@ uint8_t getTagDataBytes(void);
 uint8_t getTagEPCBytes(void);
 bool nanoCheck(void);
 
-void nanoPrintStatus(void);
+void nanoPrintStatus(const CLS1_StdIOType *io);
 static void Serial_println(const char *msg);
 void Serial_print(const char *msg);
 
 uint8_t NANO_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_StdIOType *io);
+
+uint8_t nanoStatus();
 
 
 #endif /* SOURCES_NANO_H_ */

@@ -9,6 +9,7 @@
 
 
 #include "Platform.h"
+#include "Application.h"
 #include "AS1.h"
 #include "nano.h"
 #include "RTT1.h"
@@ -20,6 +21,7 @@
 
 uint8_t _headnano = 0;
 uint8_t msg[MAX_MSG_SIZE];
+uint8_t Reader_Start = 0 ;
 
 //Comes from serial_reader_l3.c
 //ThingMagic-mutated CRC used for messages.
@@ -31,6 +33,10 @@ static uint16_t crctable[] =
 	0x8108, 0x9129, 0xa14a, 0xb16b,
 	0xc18c, 0xd1ad, 0xe1ce, 0xf1ef,
 };
+
+uint8_t nanoStatus(void){
+	return Reader_Start;
+}
 
 /*
 ** ===================================================================
@@ -47,6 +53,8 @@ void NanoInit(void){
 
 	  nanoSetReadPower(20000);
 	  WAIT1_Waitms(10);
+
+	  Reader_Start = 0;
 }
 
 /*
@@ -884,23 +892,33 @@ uint8_t parseResponse(void)
 **     Returns     :  	None
 ** ===================================================================
 */
-void nanoPrintStatus(void){
-	unsigned char buf[50] = {};
-
-	Serial_print((unsigned char*)"tag found:");
+void nanoPrintStatus(const CLS1_StdIOType *io){
+	unsigned char buf[150] = {};
+	unsigned char rxBuf[100] = {};
+	uint8_t res = 0;
+	uint8_t ch_id = 1;
 
 	UTIL1_strcpy(buf, sizeof(buf), (unsigned char*)"0x");
 
 	uint8_t tagEPCBytes = getTagEPCBytes();
 	for (byte x = 0 ; x < tagEPCBytes ; x++)
 	{
-		UTIL1_strcatNum8Hex(buf, sizeof(buf), (uint8_t*)msg[31 + x] );
+		UTIL1_strcatNum8Hex(buf, sizeof(buf), (uint8_t*)msg[31 + x]);
 		UTIL1_strcat(buf, sizeof(buf), (unsigned char*)" " );
 	}
-	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)"," );
+	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)",");
 	UTIL1_strcatNum8s(buf, sizeof(buf), getTagRSSI());
 
+	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)"\r\n\0" );
+
 	Serial_println((unsigned char*)buf);
+
+	//print to network //TODO makro for enabling
+	ESP_PrepareMsgSend(ch_id, UTIL1_strlen(buf), ESP_DEFAULT_TIMEOUT_MS, io);
+
+	res = ESP_SendATCommand(buf, rxBuf, sizeof(rxBuf), "\r\nRecv 44 bytes\r\n\r\nSEND OK\r\n", ESP_DEFAULT_TIMEOUT_MS, io);
+
+	//if(res != 0) openESP();
 }
 
 /*
@@ -969,11 +987,13 @@ uint8_t NANO_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_St
   } else if (UTIL1_strcmp((char*)cmd, "Nano start")==0) {
 	*handled = TRUE;
 	nanoStartReading();
+	Reader_Start = 1;
 	res = ERR_OK;
 	CLS1_SendStr("Reader Started!\r\n", io->stdOut);
   } else if (UTIL1_strcmp((char*)cmd, "Nano stop")==0) {
 	*handled = TRUE;
 	nanoStopReading();
+	Reader_Start = 0;
 	res = ERR_OK;
 	CLS1_SendStr("Reader Stopped!\r\n", io->stdOut);
 } else if (UTIL1_strcmp((char*)cmd, "Nano once")==0) {
@@ -982,47 +1002,10 @@ uint8_t NANO_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_St
 	WAIT1_Waitus(10);
 	nanoStopReading();
 	nanoCheck();
-	nanoPrintStatus();
+	//nanoPrintStatus();
 	res = ERR_OK;
   }
   return res;
-}
-
-//send TAG EPC to ESP
-void netProcess(const CLS1_StdIOType *io){
-	uint8_t res = ERR_OK;
-	uint8_t buf[64];
-	uint8_t ch_id = 4;
-
-	uint8_t tagEPCBytes = getTagEPCBytes();
-	for (byte x = 0 ; x < tagEPCBytes ; x++)
-	{
-		UTIL1_strcatNum8Hex(buf, sizeof(buf), (uint8_t*)msg[31 + x] );
-		UTIL1_strcat(buf, sizeof(buf), (unsigned char*)" " );
-	}
-
-	UTIL1_strcat(buf, sizeof(buf), "\r\n");
-
-	res = ESP_PrepareMsgSend(ch_id, UTIL1_strlen(buf), 3000, io);
-	if (res==ERR_OK) {
-	/* sending data */
-		res = ESP_SendATCommand(buf, NULL, 0, NULL, ESP_DEFAULT_TIMEOUT_MS, io);
-		if (res!=ERR_OK) {
-			CLS1_SendStr("Sending page failed!\r\n", io->stdErr); /* copy on console */
-		} else {
-			for(;;) { /* breaks */
-				res = ESP_ReadCharsUntil(buf, sizeof(buf), '\n', 1000);
-				if (res==ERR_OK) { /* line read */
-					if (io!=NULL) {
-						CLS1_SendStr(buf, io->stdOut); /* copy on console */
-					}
-				}
-				if (UTIL1_strncmp(buf, "SEND OK\r\n", sizeof("SEND OK\r\n")-1)==0) { /* ok from module */
-					break;
-				}
-			}
-		}
-	}
 }
 
 

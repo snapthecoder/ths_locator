@@ -118,7 +118,7 @@ uint8_t ESP_SendATCommand(uint8_t *cmd, uint8_t *rxBuf, size_t rxBufSize, uint8_
   uint16_t snt;
   uint8_t res = ERR_OK;
 
-  //clear rxbuffer of uart
+  //clear rxbuffer of uart *added dm*
   AS2_ClearRxBuf();
 
   if (rxBuf!=NULL) {

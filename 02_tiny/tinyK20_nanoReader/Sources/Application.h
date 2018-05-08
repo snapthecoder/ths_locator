@@ -10,6 +10,9 @@
 #define SOURCES_FS2016_COMMON_APPLICATION_H_
 
 #include "Platform.h"
+#include "PE_Types.h"
+
+
 
 void APP_Start(void);
 

@@ -22,7 +22,7 @@
   <GeneratedFilesList>
     <GeneratedByPE>
       <File Name="Static_Code/PDD/PDB_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886891" FileType="1048576" />
-      <File Name="Documentation/tinyK20_nanoReader_SIGNALS.txt" FileDate="2018-04-30, 11:50:50" FileAge="1525081850040" FileType="3072" />
+      <File Name="Documentation/tinyK20_nanoReader_SIGNALS.txt" FileDate="2018-05-08, 10:45:48" FileAge="1525769148426" FileType="3072" />
       <File Name="Generated_Code/LED1.h" FileDate="2018-04-03, 15:32:58" FileAge="1522762378985" FileType="45637" CompNumb="6" />
       <File Name="Generated_Code/AS2.c" FileDate="2018-04-04, 20:11:21" FileAge="1522865481015" FileType="45637" CompNumb="23" />
       <File Name="Generated_Code/RTT1config.h" FileDate="2018-04-03, 15:32:58" FileAge="1522762378750" FileType="45637" CompNumb="13" />
@@ -125,5 +125,5 @@
       <File Name="Generated_Code/AS2.h" FileDate="2018-04-04, 20:11:20" FileAge="1522865480999" FileType="45637" CompNumb="23" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>28</CodeGenReference>
+  <CodeGenReference>30</CodeGenReference>
 </CodeGenerationInfo>
