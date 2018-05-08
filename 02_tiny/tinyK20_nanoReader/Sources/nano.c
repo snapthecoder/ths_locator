@@ -903,7 +903,7 @@ void nanoPrintStatus(const CLS1_StdIOType *io){
 	uint8_t tagEPCBytes = getTagEPCBytes();
 	for (byte x = 0 ; x < tagEPCBytes ; x++)
 	{
-		UTIL1_strcatNum8Hex(buf, sizeof(buf), (uint8_t*)msg[31 + x]);
+		UTIL1_strcatNum8Hex(buf, sizeof(buf), msg[31 + x]);
 		UTIL1_strcat(buf, sizeof(buf), (unsigned char*)" " );
 	}
 	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)",");
@@ -918,6 +918,7 @@ void nanoPrintStatus(const CLS1_StdIOType *io){
 
 	res = ESP_SendATCommand(buf, rxBuf, sizeof(rxBuf), "\r\nRecv 44 bytes\r\n\r\nSEND OK\r\n", ESP_DEFAULT_TIMEOUT_MS, io);
 
+	//TODO reconnect if sending fails
 	//if(res != 0) openESP();
 }
 
@@ -956,15 +957,15 @@ static uint8_t NANO_PrintHelp(const CLS1_StdIOType *io) {
   CLS1_SendHelpStr("  help|status", "Print help or status information\r\n", io->stdOut);
   CLS1_SendHelpStr("  set read power <value>", "Set read power to a value\r\n", io->stdOut);
   CLS1_SendHelpStr("  set write power <value>", "Set write power to a value\r\n", io->stdOut);
-  CLS1_SendHelpStr("  start reading", "starts cont. reading\r\n", io->stdOut);
-  CLS1_SendHelpStr("  stop reading", "stops cont. reading\r\n", io->stdOut);
+  CLS1_SendHelpStr("  start", "starts cont. reading\r\n", io->stdOut);
+  CLS1_SendHelpStr("  stop", "stops cont. reading\r\n", io->stdOut);
   return ERR_OK;
 }
 
 static uint8_t NANO_PrintStatus(const CLS1_StdIOType *io) {
   uint8_t buf[24];
 
-  CLS1_SendStatusStr("not implemented yet", "\r\n", io->stdOut);
+  CLS1_SendStatusStr("not implemented", "\r\n", io->stdOut);
   //CLS1_SendStatusStr("ThingSpeak", "\r\n", io->stdOut);
   //CLS1_SendStatusStr("  Baudrate", "\r\n", io->stdOut);
 
@@ -996,14 +997,6 @@ uint8_t NANO_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_St
 	Reader_Start = 0;
 	res = ERR_OK;
 	CLS1_SendStr("Reader Stopped!\r\n", io->stdOut);
-} else if (UTIL1_strcmp((char*)cmd, "Nano once")==0) {
-	*handled = TRUE;
-	nanoStartReading();
-	WAIT1_Waitus(10);
-	nanoStopReading();
-	nanoCheck();
-	//nanoPrintStatus();
-	res = ERR_OK;
   }
   return res;
 }

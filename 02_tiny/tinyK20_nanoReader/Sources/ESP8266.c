@@ -236,8 +236,10 @@ uint8_t ESP_SetNumberOfConnections(uint8_t nof, const CLS1_StdIOType *io, uint16
 uint8_t ESP_SetServer(bool startIt, uint16_t port, const CLS1_StdIOType *io, uint16_t timeoutMs) {
   /* AT+CIPSERVER=<en>,<port>, where <en>: 0: stop, 1: start */
   uint8_t res;
-  uint8_t cmd[sizeof("AT+CIPSERVER=1,80\r\n\r\nOK\r\n")+sizeof("no change")];
-  uint8_t rxBuf[sizeof("AT+CIPSERVER=1,80\r\n\r\nOK\r\n")+sizeof("no change")];
+  //uint8_t cmd[sizeof("AT+CIPSERVER=1,80\r\n\r\nOK\r\n")+sizeof("no change")];
+  uint8_t cmd[sizeof("AT+CIPSERVER=1,80\r\r\nno change\r\n\r\nOK\r")];
+  //uint8_t rxBuf[sizeof("AT+CIPSERVER=1,80\r\n\r\nOK\r\n")+sizeof("no change")];
+  uint8_t rxBuf[sizeof("AT+CIPSERVER=1,80\r\r\nno change\r\n\r\nOK\r")];
 
   UTIL1_strcpy(cmd, sizeof(cmd), "AT+CIPSERVER=");
   if (startIt) {
@@ -256,9 +258,10 @@ uint8_t ESP_SetServer(bool startIt, uint16_t port, const CLS1_StdIOType *io, uin
       UTIL1_strcat(cmd, sizeof(cmd), "0,");
     }
     UTIL1_strcatNum16u(cmd, sizeof(cmd), port);
-    UTIL1_strcat(cmd, sizeof(cmd), "\r\r\nno change\r\n");
-    if (UTIL1_strcmp(rxBuf, cmd)==0) {
+    UTIL1_strcat(cmd, sizeof(cmd), "\r\r\nno change\r\n\0");
+    if (UTIL1_strcmp(rxBuf, "AT+CIPSERVER=1,80\r\r\nno change\r\n\r\nOK\r\n")==0) {
       res = ERR_OK;
+      ESP_WebServerIsOn = TRUE;
     }
   }
   return res;
@@ -426,21 +429,21 @@ static uint8_t JoinAccessPoint(const uint8_t *ssid, const uint8_t *pwd, CLS1_Con
   /* AT+CWJAP="<ssid>","<pwd>" */
   uint8_t txBuf[48];
   uint8_t rxBuf[64];
-  uint8_t expected[48];
+  uint8_t expected[52];
 
-  UTIL1_strcpy(txBuf, sizeof(txBuf), "AT+CWJAP=\"");
+  UTIL1_strcpy(txBuf, sizeof(txBuf), "AT+CWJAP_CUR=\"");
   UTIL1_strcat(txBuf, sizeof(txBuf), ssid);
   UTIL1_strcat(txBuf, sizeof(txBuf), "\",\"");
   UTIL1_strcat(txBuf, sizeof(txBuf), pwd);
   UTIL1_strcat(txBuf, sizeof(txBuf), "\"\r\n");
 
-  UTIL1_strcpy(expected, sizeof(expected), "AT+CWJAP=\"");
+  UTIL1_strcpy(expected, sizeof(expected), "AT+CWJAP_CUR=\"");
   UTIL1_strcat(expected, sizeof(expected), ssid);
   UTIL1_strcat(expected, sizeof(expected), "\",\"");
   UTIL1_strcat(expected, sizeof(expected), pwd);
-  UTIL1_strcat(expected, sizeof(expected), "\"\r\r\n\r\nOK\r\n");
+  UTIL1_strcat(expected, sizeof(expected), "\"\r\nWIFI CONNECTED\r\n");
 
-  return ESP_SendATCommand(txBuf, rxBuf, sizeof(rxBuf), expected, ESP_DEFAULT_TIMEOUT_MS, io);
+  return ESP_SendATCommand(txBuf, rxBuf, sizeof(rxBuf), expected, 2000, io);
 }
 
 uint8_t ESP_JoinAP(const uint8_t *ssid, const uint8_t *pwd, int nofRetries, CLS1_ConstStdIOType *io) {
