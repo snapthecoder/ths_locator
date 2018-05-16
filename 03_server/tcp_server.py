@@ -2,7 +2,7 @@ import socket
 import threading
 import SocketServer
 import re
-
+import csv
 
 class DataParser():
 
@@ -10,10 +10,23 @@ class DataParser():
     positions = [0, 0, 0, 0, 0, 0];
 
     def changePos(self, epc, gate):
-        if self.positions[epc] < gate:
-            self.positions[epc] = gate
-        if self.positions[epc] >= gate:
-            self.positions[epc] = gate-1
+
+        r = csv.reader(open('positions.txt'))  # Here your csv file
+        lines = list(r)
+
+        i = 0
+
+        for row in lines:
+            if row[0] == str(epc):
+                if row[1] < str(gate):
+                        lines[i][1] = str(gate)
+                elif row[1] >= str(gate):
+                        lines[i][1] = str(gate-1)
+            i = i+1
+
+        writer = csv.writer(open('positions.txt', 'w'))
+        writer.writerows(lines)
+
 
     def parse(self, message):
         # system of a message
