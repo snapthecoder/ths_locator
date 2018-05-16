@@ -1,52 +1,89 @@
 import socket
 import threading
-import tcp_handler
+import SocketServer
+import re
 
-class ThreadedServer(object):
-    def __init__(self, host, port):
-        self.host = host
-        self.port = port
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.sock.bind((self.host, self.port))
 
-    def listen(self):
-        self.sock.listen(5)
-        while True:
-            client, address = self.sock.accept()
-            #client.settimeout(60)
-            threading.Thread(target = self.listenToClient,args = (client,address)).start()
+class DataParser():
 
-    def listenToClient(self, client, address):
-        size = 1024
-        print "created handler: {}".format(address)
-        while True:
-            try:
-                data = client.recv(size)
-                if data:
-                    # Set the response to echo back the recieved data
-                    print "recv: {}".format(data)
-                    # call data parser
+    # array pos = epc
+    positions = [0, 0, 0, 0, 0, 0];
 
-                    splitdata = data.split(",", 1)
+    def changePos(self, epc, gate):
+        if self.positions[epc] < gate:
+            self.positions[epc] = gate
+        if self.positions[epc] >= gate:
+            self.positions[epc] = gate-1
 
-                    # gate number?
-                    #if splitdata[1] == "GATE":
-                    #    if splitdata[2] == "01":
-                    #        print "GATE01 init.."
-                    #    elif splitdata[2] == "02":
-                    #        print "GATE02 init.."
-                    #    elif splitdata[2] == "03":
-                    #        print "GATE03 init.."
-                    #    else:
-                    #        print "GATE init failed.."
-                else:
-                    raise error('Client disconnected')
-            except:
-                print "closed: {}".format(address)
-                client.close()
-                return False
+    def parse(self, message):
+        # system of a message
+        # STX (start of text)
+        # 2 chars for GATE Nr. (ex. 01)
+        # comma
+        # 24 chars for EPC (ex. 000000000000000000000001)
+        # comma
+        # 3 chars for RSSI (ex. -24)
+        # ETX (end of text)
+
+        # extract values from message
+
+        values = [int(s) for s in re.findall(r"[-+]?\d*\.\d+|[-+]?\d+",message)]
+
+        self.changePos(values[1], values[0])
+
+
+class ThreadedTCPRequestHandler(SocketServer.BaseRequestHandler):
+
+    def handle(self):
+        data = self.request.recv(1024)
+        print "Recv:", data
+
+        # splitdata = data.split(",", 3)
+
+        # [int(splitdata) for splitdata in data.split() if splitdata.isdigit()]
+
+        parser1.parse(data)
+
+
+class ThreadedTCPServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
+    pass
+
+
+def client(ip, port, message):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((ip, port))
+    try:
+        sock.sendall(message)
+        response = sock.recv(1024)
+        print "Received: {}".format(response)
+    finally:
+        sock.close()
+
 
 if __name__ == "__main__":
-    port_num = 8000
-    ThreadedServer('',port_num).listen()
+    # Port 0 means to select an arbitrary unused port
+    HOST, PORT = "localhost", 8000
+
+    server = ThreadedTCPServer((HOST, PORT), ThreadedTCPRequestHandler)
+    ip, port = server.server_address
+
+    # Start a thread with the server -- that thread will then start one
+    # more thread for each request
+    server_thread = threading.Thread(target=server.serve_forever)
+
+    # Exit the server thread when the main thread terminates
+    server_thread.daemon = True
+    server_thread.start()
+
+    print "Server loop running in thread:", server_thread.name
+
+    parser1 = DataParser()
+
+    while True:
+        pass
+
+    #client(ip, port, "Hello World 1")
+    #server.shutdown()
+    #server.server_close()
+
+

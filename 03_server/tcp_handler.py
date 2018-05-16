@@ -1,20 +1,31 @@
 class DataParser:
 
-    def parser(data):
+    def parser():
 
-        splitdata = data.split(",", 1)
+        splitdata = ""#data.split(",", 2)
 
-        #gate number?
-        if  splitdata[1] == "GATE":
-            if splitdata[2] == "01":
+        print "i'm running too"
+
+        # gate number?
+        if splitdata[0] == "GATE":
+            if splitdata[1] == "01":
                 print "GATE01 init.."
-            elif splitdata[2] == "02":
+            elif splitdata[1] == "02":
                 print "GATE02 init.."
-            elif splitdata[2] == "03":
+            elif splitdata[1] == "03":
                 print "GATE03 init.."
             else:
                 print "GATE init failed.."
 
+        if splitdata[0] == "TAG":
+            if splitdata[1] == "01":
+                print "TAG from GATE 01.."
+            elif splitdata[1] == "02":
+                print "TAG from GATE 02.."
+            elif splitdata[1] == "03":
+                print "TAG from GATE 03.."
+            else:
+                print "No TAG found.."
 
 
 
