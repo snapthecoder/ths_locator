@@ -22,6 +22,7 @@
 uint8_t _headnano = 0;
 uint8_t msg[MAX_MSG_SIZE];
 uint8_t Reader_Start = 0 ;
+uint8_t gatenr = 0;
 
 //Comes from serial_reader_l3.c
 //ThingMagic-mutated CRC used for messages.
@@ -890,36 +891,59 @@ uint8_t parseResponse(void)
 **     Description :  	Prints actual readed tags in HEX
 **     Parameters  :  	None
 **     Returns     :  	None
+**
+**      # system of a message
+        # STX (start of text)
+        # 2 chars for GATE Nr. (ex. 01)
+        # comma
+        # 24 chars for EPC (ex. 000000000000000000000001)
+        # comma
+        # 3 chars for RSSI (ex. -24)
+        # ETX (end of text)
 ** ===================================================================
 */
 void nanoPrintStatus(const CLS1_StdIOType *io){
+
+
 	unsigned char buf[150] = {};
 	unsigned char rxBuf[100] = {};
 	uint8_t res = 0;
 	uint8_t ch_id = 1;
 
-	UTIL1_strcpy(buf, sizeof(buf), (unsigned char*)"0x");
+	UTIL1_strcpy(buf, sizeof(buf), (unsigned char*)"STX");
+	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)gatenr);
+	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)",");
 
 	uint8_t tagEPCBytes = getTagEPCBytes();
 	for (byte x = 0 ; x < tagEPCBytes ; x++)
 	{
 		UTIL1_strcatNum8Hex(buf, sizeof(buf), msg[31 + x]);
-		UTIL1_strcat(buf, sizeof(buf), (unsigned char*)" " );
 	}
 	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)",");
 	UTIL1_strcatNum8s(buf, sizeof(buf), getTagRSSI());
 
-	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)"\r\n\0" );
+	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)"ETX\r\n\0" );
 
 	Serial_println((unsigned char*)buf);
 
 	//print to network //TODO makro for enabling
+
+	WAIT1_Waitms(50);
+
+	uint8_t IPAddrStr[20] = "192.168.0.103";
+	uint16_t port = 8000;
+	uint16_t msTimeout = 1000;
+
+	ESP_OpenConnection(ch_id, 1, IPAddrStr, port, msTimeout, io);
+
 	ESP_PrepareMsgSend(ch_id, UTIL1_strlen(buf), ESP_DEFAULT_TIMEOUT_MS, io);
 
 	res = ESP_SendATCommand(buf, rxBuf, sizeof(rxBuf), "\r\nRecv 44 bytes\r\n\r\nSEND OK\r\n", ESP_DEFAULT_TIMEOUT_MS, io);
 
 	//TODO reconnect if sending fails
 	//if(res != 0) openESP();
+
+	WAIT1_Waitms(50);
 }
 
 /*

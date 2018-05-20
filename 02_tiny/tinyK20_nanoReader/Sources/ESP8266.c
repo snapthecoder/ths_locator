@@ -570,12 +570,12 @@ uint8_t ESP_StartWebServer(const CLS1_StdIOType *io) {
   res = ESP_SetNumberOfConnections(1, io, ESP_DEFAULT_TIMEOUT_MS);
   if (res!=ERR_OK) {
     CLS1_SendStr("ERR: failed to set multiple connections.\r\n", io->stdErr);
-    return res;
+    //return res;
   }
   res = ESP_SetServer(TRUE, 80, io, ESP_DEFAULT_TIMEOUT_MS);
   if (res!=ERR_OK) {
     CLS1_SendStr("ERR: failed to set server.\r\n", io->stdErr);
-    return res;
+    //return res;
   }
   CLS1_SendStr("INFO: Web Server started, waiting for connection on ", io->stdOut);
   if (ESP_GetIPAddrString(buf, sizeof(buf))==ERR_OK) {

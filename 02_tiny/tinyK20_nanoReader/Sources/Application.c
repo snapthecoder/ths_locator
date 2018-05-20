@@ -87,6 +87,10 @@ static void WebProcess(const CLS1_StdIOType *io) {
 
   if(ESP_IsServerOn()){
 	  res = ESP_ReadCharsUntil(APP_EspMsgBuf, sizeof(APP_EspMsgBuf), '\n', 10);
+
+	  if(UTIL1_strcmp(APP_EspMsgBuf, (char *)"Nano_Start") == ERR_OK){
+		  CLS1_SendStr("Nano Start\r\n", io->stdOut);
+	  }
 	  UTIL1_strcat(APP_EspMsgBuf, sizeof(APP_EspMsgBuf), "\0");
   }
 }
@@ -114,7 +118,7 @@ void openESP(const CLS1_StdIOType *io){
 	uint8_t pwd[10];
 
 	//TODO use macros
-	uint8_t IPAddrStr[20] = "192.168.0.101";
+	uint8_t IPAddrStr[20] = "192.168.0.103";
 	uint16_t port = 8000;
 	uint16_t msTimeout = 1000;
 
@@ -135,13 +139,15 @@ void openESP(const CLS1_StdIOType *io){
 	//open connection to server
 	if(ESP_OpenConnection(ch_id, 1, IPAddrStr, port, msTimeout, io) != ERR_OK)
 		CLS1_SendStr("Open connection failed -> reset for retry\r\n", io->stdOut);
-
+	/*
 	//send gate nr to server //TODO GATE NR in FLASH config over SHELL
 	UTIL1_strcpy(buf, sizeof(buf), "GATE01\r\n");
 	if(ESP_PrepareMsgSend(ch_id, UTIL1_strlen(buf), 3000, io) != ERR_OK)
 		CLS1_SendStr("Prepare message failed -> reset for retry\r\n", io->stdOut);
 	if(ESP_SendATCommand(buf, NULL, 0, NULL, ESP_DEFAULT_TIMEOUT_MS, io) != ERR_OK)
 		CLS1_SendStr("Send message failed -> reset for retry\r\n", io->stdOut);
+
+	*/
 }
 
 
@@ -164,7 +170,7 @@ void APP_Start(void) {
 
 	  openESP(io);
 	  //for future starting over webinterface
-	  ESP_StartWebServer(io);
+	  //ESP_StartWebServer(io);
 
 	  for(;;){
 

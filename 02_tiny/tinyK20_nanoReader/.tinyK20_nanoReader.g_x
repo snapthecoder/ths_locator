@@ -22,7 +22,7 @@
   <GeneratedFilesList>
     <GeneratedByPE>
       <File Name="Static_Code/PDD/PDB_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886891" FileType="1048576" />
-      <File Name="Documentation/tinyK20_nanoReader_SIGNALS.txt" FileDate="2018-05-08, 19:36:42" FileAge="1525801002548" FileType="3072" />
+      <File Name="Documentation/tinyK20_nanoReader_SIGNALS.txt" FileDate="2018-05-20, 19:28:22" FileAge="1526837302295" FileType="3072" />
       <File Name="Generated_Code/LED1.h" FileDate="2018-04-03, 15:32:58" FileAge="1522762378985" FileType="45637" CompNumb="6" />
       <File Name="Generated_Code/AS2.c" FileDate="2018-04-04, 20:11:21" FileAge="1522865481015" FileType="45637" CompNumb="23" />
       <File Name="Generated_Code/RTT1config.h" FileDate="2018-04-03, 15:32:58" FileAge="1522762378750" FileType="45637" CompNumb="13" />
@@ -91,39 +91,39 @@
       <File Name="Generated_Code/TmDt1.c" FileDate="2018-04-09, 20:16:12" FileAge="1523297772077" FileType="45637" CompNumb="25" />
       <File Name="Generated_Code/MCUC1.h" FileDate="2018-04-03, 15:32:59" FileAge="1522762379047" FileType="45637" CompNumb="9" />
       <File Name="Generated_Code/MCUC1.c" FileDate="2018-04-03, 15:32:59" FileAge="1522762379047" FileType="45637" CompNumb="9" />
-      <File Name="Generated_Code/CLS1config.h" FileDate="2018-04-04, 13:18:19" FileAge="1522840699730" FileType="45637" CompNumb="15" />
       <File Name="Project_Settings/Startup_Code/startup.c" FileDate="2018-04-03, 15:24:46" FileAge="1522761886500" FileType="16384" CompNumb="5" />
+      <File Name="Generated_Code/CLS1config.h" FileDate="2018-04-04, 13:18:19" FileAge="1522840699730" FileType="45637" CompNumb="15" />
       <File Name="Generated_Code/XF1config.h" FileDate="2018-04-03, 15:32:58" FileAge="1522762378828" FileType="45637" CompNumb="17" />
-      <File Name="Static_Code/PDD/DMA_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886813" FileType="1048576" />
       <File Name="Generated_Code/RTT_Syscalls_GCC.c" FileDate="2018-04-03, 15:32:58" FileAge="1522762378688" FileType="45637" CompNumb="13" />
-      <File Name="Generated_Code/PE_Error.h" FileDate="2018-04-03, 15:32:58" FileAge="1522762378672" FileType="45637" />
+      <File Name="Static_Code/PDD/DMA_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886813" FileType="1048576" />
       <File Name="Static_Code/PDD/SPI_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886938" FileType="1048576" />
-      <File Name="Documentation/doxygen/BitIoLdd1_component.txt" FileDate="2018-04-09, 10:58:53" FileAge="1523264333262" FileType="45637" CompNumb="8" />
+      <File Name="Generated_Code/PE_Error.h" FileDate="2018-04-03, 15:32:58" FileAge="1522762378672" FileType="45637" />
       <File Name="Static_Code/PDD/EWM_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886828" FileType="1048576" />
+      <File Name="Documentation/doxygen/BitIoLdd1_component.txt" FileDate="2018-04-09, 10:58:53" FileAge="1523264333262" FileType="45637" CompNumb="8" />
       <File Name="Generated_Code/CLS1.h" FileDate="2018-04-04, 20:01:42" FileAge="1522864902736" FileType="45637" CompNumb="15" />
       <File Name="Static_Code/PDD/SIM_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886938" FileType="1048576" />
-      <File Name="Documentation/doxygen/RoutingReport_component.txt" FileDate="2018-04-03, 15:24:47" FileAge="1522761887063" FileType="45637" CompNumb="5" />
       <File Name="Static_Code/PDD/ADC_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886766" FileType="1048576" />
-      <File Name="Generated_Code/CLS1.c" FileDate="2018-04-04, 20:01:42" FileAge="1522864902800" FileType="45637" CompNumb="15" />
+      <File Name="Documentation/doxygen/RoutingReport_component.txt" FileDate="2018-04-03, 15:24:47" FileAge="1522761887063" FileType="45637" CompNumb="5" />
       <File Name="Static_Code/PDD/WDOG_PDD.h" FileDate="2018-04-03, 15:24:47" FileAge="1522761887000" FileType="1048576" />
-      <File Name="Static_Code/PDD/PDD_Types.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886766" FileType="1048576" CompNumb="5" />
+      <File Name="Generated_Code/CLS1.c" FileDate="2018-04-04, 20:01:42" FileAge="1522864902800" FileType="45637" CompNumb="15" />
       <File Name="Sources/Events.h" FileDate="2018-04-09, 20:16:12" FileAge="1523297772218" FileType="131328" />
+      <File Name="Static_Code/PDD/PDD_Types.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886766" FileType="1048576" CompNumb="5" />
       <File Name="Static_Code/PDD/GPIO_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886860" FileType="1048576" />
       <File Name="Sources/Events.c" FileDate="2018-04-04, 20:11:21" FileAge="1522865481046" FileType="131328" />
       <File Name="Documentation/tinyK20_nanoReader_Settings.xml" FileDate="2018-04-09, 20:16:12" FileAge="1523297772452" FileType="3072" />
       <File Name="Static_Code/PDD/SAI_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886922" FileType="1048576" />
-      <File Name="Static_Code/PDD/SysTick_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886953" FileType="1048576" />
       <File Name="Generated_Code/ASerialLdd2.h" FileDate="2018-04-04, 20:11:20" FileAge="1522865480952" FileType="45637" CompNumb="24" />
+      <File Name="Static_Code/PDD/SysTick_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886953" FileType="1048576" />
       <File Name="Generated_Code/ASerialLdd2.c" FileDate="2018-04-04, 20:11:20" FileAge="1522865480967" FileType="45637" CompNumb="24" />
-      <File Name="Documentation/doxygen/pex.doxyfile" FileDate="2018-04-03, 15:24:47" FileAge="1522761887063" FileType="45637" CompNumb="5" />
-      <File Name="Generated_Code/WAIT1config.h" FileDate="2018-04-03, 15:32:58" FileAge="1522762378906" FileType="45637" CompNumb="14" />
       <File Name="Generated_Code/ASerialLdd1.h" FileDate="2018-04-09, 19:41:32" FileAge="1523295692295" FileType="45637" CompNumb="12" />
+      <File Name="Generated_Code/WAIT1config.h" FileDate="2018-04-03, 15:32:58" FileAge="1522762378906" FileType="45637" CompNumb="14" />
+      <File Name="Documentation/doxygen/pex.doxyfile" FileDate="2018-04-03, 15:24:47" FileAge="1522761887063" FileType="45637" CompNumb="5" />
       <File Name="Static_Code/PDD/FTM_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886844" FileType="1048576" />
       <File Name="Generated_Code/ASerialLdd1.c" FileDate="2018-04-09, 19:41:32" FileAge="1523295692321" FileType="45637" CompNumb="12" />
-      <File Name="Documentation/tinyK20_nanoReader.txt" FileDate="2018-04-09, 20:16:12" FileAge="1523297772671" FileType="3072" />
       <File Name="Static_Code/PDD/CMT_PDD.h" FileDate="2018-04-03, 15:24:46" FileAge="1522761886781" FileType="1048576" />
+      <File Name="Documentation/tinyK20_nanoReader.txt" FileDate="2018-04-09, 20:16:12" FileAge="1523297772671" FileType="3072" />
       <File Name="Generated_Code/AS2.h" FileDate="2018-04-04, 20:11:20" FileAge="1522865480999" FileType="45637" CompNumb="23" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>31</CodeGenReference>
+  <CodeGenReference>34</CodeGenReference>
 </CodeGenerationInfo>
