@@ -1,14 +1,6 @@
-# with is like your try .. finally block in this case
-with open('positions.txt', 'r') as file:
-    # read a list of lines into data
-    data = file.readlines()
+import time
 
-print data
-print "Your name: " + data[0]
+ts = time.time()
 
-# now change the 2nd line, note that you have to add a newline
-data[2] = 'new line 2\n'
+print(ts)
 
-# and write everything back
-with open('positions.txt', 'w') as file:
-    file.writelines( data )

@@ -3,25 +3,30 @@ import threading
 import SocketServer
 import re
 import csv
+import time
 
 class DataParser():
 
+    # positions
+    # 1 (in view of gate 1), 2 (in view of gate 2)
     # array pos = epc
     positions = [0, 0, 0, 0, 0, 0];
 
-    def changePos(self, epc, gate):
+    def changePos(self, rssi, epc, gate):
 
         r = csv.reader(open('positions.txt'))  # Here your csv file
         lines = list(r)
 
         i = 0
 
+        ts = time.time()
+
         for row in lines:
             if row[0] == str(epc):
-                if row[1] < str(gate):
-                        lines[i][1] = str(gate)
-                elif row[1] >= str(gate):
-                        lines[i][1] = str(gate-1)
+                row[3] = ts
+                lines[i][1] = str(gate)
+                lines[i][2] = str(rssi)
+                # TODO read RSSI for direction rec.
             i = i+1
 
         writer = csv.writer(open('positions.txt', 'w'))
@@ -40,9 +45,16 @@ class DataParser():
 
         # extract values from message
 
+
         values = [int(s) for s in re.findall(r"[-+]?\d*\.\d+|[-+]?\d+",message)]
 
-        self.changePos(values[1], values[0])
+        self.changePos(values[2],values[1], values[0])
+
+        with open("log.txt", "a") as myfile:
+            myfile.write(str(values[0])+",")
+            myfile.write(str(values[1])+",")
+            myfile.write(str(values[2])+",")
+            myfile.write(time.strftime('%X %x %Z') + "\n")
 
 
 class ThreadedTCPRequestHandler(SocketServer.BaseRequestHandler):
@@ -75,7 +87,7 @@ def client(ip, port, message):
 
 if __name__ == "__main__":
     # Port 0 means to select an arbitrary unused port
-    HOST, PORT = "localhost", 8000
+    HOST, PORT = "192.168.0.103", 8000
 
     server = ThreadedTCPServer((HOST, PORT), ThreadedTCPRequestHandler)
     ip, port = server.server_address
