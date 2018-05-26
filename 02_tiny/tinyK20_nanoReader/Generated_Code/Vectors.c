@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-09, 20:16, # CodeGen: 26
+**     Date/Time   : 2018-05-26, 12:00, # CodeGen: 37
 **     Abstract    :
 **
 **     Settings    :
@@ -71,6 +71,8 @@
   #include "AS2.h"
   #include "ASerialLdd2.h"
   #include "TmDt1.h"
+  #include "enableNano.h"
+  #include "BitIoLdd2.h"
   #include "Events.h"
 
 

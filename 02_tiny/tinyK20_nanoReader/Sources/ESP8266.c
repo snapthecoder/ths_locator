@@ -2,8 +2,11 @@
  * ESP8266.c
  *
  *      Author: Erich Styger
+ *
+ *      Edits April, 2018: Dominic Meierhans
  */
 
+//Includes
 #include "ESP8266.h"
 #include "Shell.h"
 #include "UTIL1.h"
@@ -11,12 +14,18 @@
 #include "AS2.h"
 #include "WAIT1.h"
 
+//Variables
 static bool ESP_WebServerIsOn = FALSE;
 
+//returns WebServer Status (ON->TRUE or OFF->FALSE)
 bool ESP_IsServerOn(void) {
   return ESP_WebServerIsOn;
 }
 
+/*
+ * sends string to Asynchorn Serial
+ * string is terminated by '\0'
+ */
 static void Send(unsigned char *str) {
   while(*str!='\0') {
     AS2_SendChar(*str);
@@ -24,12 +33,20 @@ static void Send(unsigned char *str) {
   }
 }
 
+/*
+ * Skip all '\n' and '\r' in a string
+ */
 static void SkipNewLines(const unsigned char **p) {
   while(**p=='\n' || **p=='\r') {
     (*p)++; /* skip new lines */
   }
 }
 
+/*
+ * Read Chars from UART until sentinelChar, store it at "buf"
+ * if no data in Buffer wait for "timeoutMS"
+ * terminates the string at "buf" with '\0'
+ */
 uint8_t ESP_ReadCharsUntil(uint8_t *buf, size_t bufSize, uint8_t sentinelChar, uint16_t timeoutMs) {
   uint8_t ch;
   uint8_t res = ERR_OK;
@@ -66,6 +83,11 @@ uint8_t ESP_ReadCharsUntil(uint8_t *buf, size_t bufSize, uint8_t sentinelChar, u
   return res;
 }
 
+/*
+ * Wait and Reads response from ESP8266 until "expectedTail" and
+ * stores it in "rxBuf"
+ * If no data is in rxBuffer, wait for msTimeout
+ */
 static uint8_t RxResponse(unsigned char *rxBuf, size_t rxBufLength, unsigned char *expectedTail, uint16_t msTimeout) {
   unsigned char ch;
   uint8_t res = ERR_OK;
@@ -114,6 +136,10 @@ static uint8_t RxResponse(unsigned char *rxBuf, size_t rxBufLength, unsigned cha
   return res;
 }
 
+/*
+ * Sends an AT-Command "cmd" to the ESP8266. After sending the command, RxResponse is called
+ * to get the response.
+ */
 uint8_t ESP_SendATCommand(uint8_t *cmd, uint8_t *rxBuf, size_t rxBufSize, uint8_t *expectedTailStr, uint16_t msTimeout, const CLS1_StdIOType *io) {
   uint16_t snt;
   uint8_t res = ERR_OK;
@@ -141,6 +167,9 @@ uint8_t ESP_SendATCommand(uint8_t *cmd, uint8_t *rxBuf, size_t rxBufSize, uint8_
   return res;
 }
 
+/*
+ * Sends the AT Command "AT" and checks if response is "AT OK", returns result
+ */
 uint8_t ESP_TestAT(void) {
   /* AT */
   uint8_t rxBuf[sizeof("AT\r\r\n\r\nOK\r\n")];
@@ -150,6 +179,9 @@ uint8_t ESP_TestAT(void) {
   return res;
 }
 
+/*
+ * Sends an AT Command to restart the module. Returns ERR_OK if response is "AT+RST OK" and "ready"
+ */
 uint8_t ESP_Restart(const CLS1_StdIOType *io, uint16_t timeoutMs) {
   /* AT+RST */
   uint8_t rxBuf[sizeof("AT+RST\r\r\n\r\nOK\r\n")];
@@ -173,6 +205,9 @@ uint8_t ESP_Restart(const CLS1_StdIOType *io, uint16_t timeoutMs) {
   return res;
 }
 
+/*
+ * Opens a TCP or UDP (isTCP=TRUE -> TCP else UDP) conenction to a IP and Port
+ */
 uint8_t ESP_OpenConnection(int8_t ch_id, bool isTCP, const uint8_t *IPAddrStr, uint16_t port, uint16_t msTimeout, const CLS1_StdIOType *io) {
   /* AT+CIPSTART=4,"TCP","184.106.153.149",80 */ //AT+CIPSTART="TCP","192.168.3.116",8080
   uint8_t txBuf[54];
@@ -194,13 +229,17 @@ uint8_t ESP_OpenConnection(int8_t ch_id, bool isTCP, const uint8_t *IPAddrStr, u
   UTIL1_strcatNum16u(txBuf, sizeof(txBuf), port);
 
   UTIL1_strcpy(expected, sizeof(expected), txBuf);
-  UTIL1_strcat(expected, sizeof(expected), "\r\r\n\r\nOK\r\nLinked\r\n");
+  UTIL1_strcat(expected, sizeof(expected), "\r\r\nCONNECT\r\n\r\nOK\r\n");
+
+  //expected response: "AT+CIPSTART=\"TCP\",\"192.168.0.101\",8000\r\r\nCONNECT\r\n\r\nOK\r\n"
 
   UTIL1_strcat(txBuf, sizeof(txBuf), "\r\n");
-
   return ESP_SendATCommand(txBuf, rxBuf, sizeof(rxBuf), expected, msTimeout, io);
 }
 
+/*
+ * Closes connections
+ */
 uint8_t ESP_CloseConnection(uint8_t channel, const CLS1_StdIOType *io, uint16_t timeoutMs) {
   /* AT+CIPCLOSE=<channel> */
   uint8_t res;
@@ -214,8 +253,11 @@ uint8_t ESP_CloseConnection(uint8_t channel, const CLS1_StdIOType *io, uint16_t 
   return res;
 }
 
+/*
+ * enable single or multiple connections
+ * AT+CIPMUX=<nof>, 0: single connection, 1: multiple connections
+ */
 uint8_t ESP_SetNumberOfConnections(uint8_t nof, const CLS1_StdIOType *io, uint16_t timeoutMs) {
-  /* AT+CIPMUX=<nof>, 0: single connection, 1: multiple connections */
   uint8_t res;
   uint8_t cmd[sizeof("AT+CIPMUX=12\r\n")];
   uint8_t rxBuf[sizeof("AT+CIPMUX=12\r\n\r\nOK\r\n")+10];
@@ -233,6 +275,9 @@ uint8_t ESP_SetNumberOfConnections(uint8_t nof, const CLS1_StdIOType *io, uint16
   return res;
 }
 
+/*
+ * Sets an Webserver on "port" and start it depending on "startIT"
+ */
 uint8_t ESP_SetServer(bool startIt, uint16_t port, const CLS1_StdIOType *io, uint16_t timeoutMs) {
   /* AT+CIPSERVER=<en>,<port>, where <en>: 0: stop, 1: start */
   uint8_t res;
@@ -270,7 +315,7 @@ uint8_t ESP_SetServer(bool startIt, uint16_t port, const CLS1_StdIOType *io, uin
 uint8_t ESP_SelectMode(uint8_t mode) {
   /* AT+CWMODE=<mode>, where <mode> is 1=Sta, 2=AP or 3=both */
   uint8_t txBuf[sizeof("AT+CWMODE=x\r\n")];
-  uint8_t rxBuf[sizeof("AT+CWMODE=x\r\r\nno change\r\n")];
+  uint8_t rxBuf[sizeof("AT+CWMODE=3\r\r\n\r\nOK\r\n")];
   uint8_t expected[sizeof("AT+CWMODE=3\r\r\n\r\nOK\r\n")]; //chaneged AT+CWMODE=x\r\r\nno change\r\n
   uint8_t res;
 
@@ -280,10 +325,12 @@ uint8_t ESP_SelectMode(uint8_t mode) {
   UTIL1_strcpy(txBuf, sizeof(txBuf), "AT+CWMODE=");
   UTIL1_strcatNum16u(txBuf, sizeof(txBuf), mode);
   UTIL1_strcat(txBuf, sizeof(txBuf), "\r\n");
+
   UTIL1_strcpy(expected, sizeof(expected), "AT+CWMODE=");
   UTIL1_strcatNum16u(expected, sizeof(expected), mode);
   UTIL1_strcat(expected, sizeof(expected), "\r\r\n\r\nOK\r\n");
-  res = ESP_SendATCommand(txBuf, rxBuf, sizeof(rxBuf), expected, ESP_DEFAULT_TIMEOUT_MS, NULL);
+
+  res = ESP_SendATCommand(txBuf, rxBuf, sizeof(rxBuf), expected, 500, NULL);
   if (res!=ERR_OK) {
     /* answer could be as well "AT+CWMODE=x\r\r\nno change\r\n"!! */
     UTIL1_strcpy(txBuf, sizeof(txBuf), "AT+CWMODE=");
@@ -295,10 +342,26 @@ uint8_t ESP_SelectMode(uint8_t mode) {
     if (UTIL1_strcmp(rxBuf, expected)==0) {
       res = ERR_OK;
     }
+    if (res!=ERR_OK) {
+        /* answer could be as well "AT+CWMODE=3\r\r\nbusy p." */
+        UTIL1_strcpy(txBuf, sizeof(txBuf), "AT+CWMODE=");
+        UTIL1_strcatNum16u(txBuf, sizeof(txBuf), mode);
+        UTIL1_strcat(txBuf, sizeof(txBuf), "\r\n");
+        UTIL1_strcpy(expected, sizeof(expected), "AT+CWMODE=");
+        UTIL1_strcatNum16u(expected, sizeof(expected), mode);
+        UTIL1_strcat(expected, sizeof(expected), "\r\r\nbusy p.");
+        res = RxResponse(rxBuf, sizeof(rxBuf), expected, 500);
+
+        //if everywhere OK is recv. its "ok"
+        if(UTIL1_strFind(rxBuf,"OK") != -1) res = ERR_OK;
+    }
   }
   return res;
 }
 
+/*
+ * reads firmware version of ESP8266
+ */
 uint8_t ESP_GetFirmwareVersionString(uint8_t *fwBuf, size_t fwBufSize) {
   /* AT+GMR */
   uint8_t rxBuf[32];
@@ -326,6 +389,9 @@ uint8_t ESP_GetFirmwareVersionString(uint8_t *fwBuf, size_t fwBufSize) {
   return res;
 }
 
+/*
+ * reads the IP-Address
+ */
 uint8_t ESP_GetIPAddrString(uint8_t *ipBuf, size_t ipBufSize) {
   /* AT+CIFSR */
   uint8_t rxBuf[36];
@@ -354,6 +420,9 @@ uint8_t ESP_GetIPAddrString(uint8_t *ipBuf, size_t ipBufSize) {
   return res;
 }
 
+/*
+ * reads actual mode
+ */
 uint8_t ESP_GetModeString(uint8_t *buf, size_t bufSize) {
   /* AT+CWMODE? */
   uint8_t rxBuf[32];
@@ -398,7 +467,9 @@ uint8_t ESP_GetCIPMUXString(uint8_t *cipmuxBuf, size_t cipmuxBufSize) {
   return res;
 }
 
-
+/*
+ * reads connected AP
+ */
 uint8_t ESP_GetConnectedAPString(uint8_t *apBuf, size_t apBufSize) {
   /* AT+CWJAP? */
   uint8_t rxBuf[80];
@@ -425,11 +496,14 @@ uint8_t ESP_GetConnectedAPString(uint8_t *apBuf, size_t apBufSize) {
 
 }
 
+/*
+ * join an AP
+ */
 static uint8_t JoinAccessPoint(const uint8_t *ssid, const uint8_t *pwd, CLS1_ConstStdIOType *io) {
   /* AT+CWJAP="<ssid>","<pwd>" */
   uint8_t txBuf[48];
-  uint8_t rxBuf[64];
-  uint8_t expected[52];
+  uint8_t rxBuf[80];
+  uint8_t expected[80];
 
   UTIL1_strcpy(txBuf, sizeof(txBuf), "AT+CWJAP_CUR=\"");
   UTIL1_strcat(txBuf, sizeof(txBuf), ssid);
@@ -441,11 +515,15 @@ static uint8_t JoinAccessPoint(const uint8_t *ssid, const uint8_t *pwd, CLS1_Con
   UTIL1_strcat(expected, sizeof(expected), ssid);
   UTIL1_strcat(expected, sizeof(expected), "\",\"");
   UTIL1_strcat(expected, sizeof(expected), pwd);
-  UTIL1_strcat(expected, sizeof(expected), "\"\r\nWIFI CONNECTED\r\n");
+  UTIL1_strcat(expected, sizeof(expected), "\"\r\r\nWIFI DISCONNECT\r\nWIFI CONNECTED\r\n");
+
 
   return ESP_SendATCommand(txBuf, rxBuf, sizeof(rxBuf), expected, 2000, io);
 }
 
+/*
+ * join AP with number of retries
+ */
 uint8_t ESP_JoinAP(const uint8_t *ssid, const uint8_t *pwd, int nofRetries, CLS1_ConstStdIOType *io) {
   uint8_t buf[32];
   uint8_t res;
@@ -495,6 +573,9 @@ static uint8_t ReadIntoIPDBuffer(uint8_t *buf, size_t bufSize, uint8_t *p, uint1
   return ERR_OK;
 }
 
+/*
+ * get IPD out of HTTP get
+ */
 uint8_t ESP_GetIPD(uint8_t *msgBuf, size_t msgBufSize, uint8_t *ch_id, uint16_t *size, bool *isGet, uint16_t timeoutMs, const CLS1_StdIOType *io) {
   /* scan e.g. for
    * +IPD,0,404:POST / HTTP/1.1
@@ -563,6 +644,9 @@ uint8_t ESP_GetIPD(uint8_t *msgBuf, size_t msgBufSize, uint8_t *ch_id, uint16_t 
   return res;
 }
 
+/*
+ * start webserver on port 80
+ */
 uint8_t ESP_StartWebServer(const CLS1_StdIOType *io) {
   uint8_t buf[32];
   uint8_t res;
@@ -586,10 +670,14 @@ uint8_t ESP_StartWebServer(const CLS1_StdIOType *io) {
   }
   CLS1_SendStr("\r\n", io->stdOut);
 
+  ESP_WebServerIsOn = TRUE;
+
   return ERR_OK;
 }
 
-
+/*
+ * send string to esp
+ */
 uint8_t ESP_SendStr(const uint8_t *str, CLS1_ConstStdIOType *io) {
   uint8_t buf[64];
   uint8_t rxBuf[48];
@@ -613,6 +701,9 @@ uint8_t ESP_SendStr(const uint8_t *str, CLS1_ConstStdIOType *io) {
   return ERR_OK;
 }
 
+/*
+ * prepare to send a string (send number of chars to send)
+ */
 uint8_t ESP_PrepareMsgSend(int8_t ch_id, size_t msgSize, uint16_t msTimeout, const CLS1_StdIOType *io) {
   /* AT+CIPSEND=<ch_id>,<size> */
   uint8_t cmd[24], rxBuf[48], expected[48];
@@ -627,6 +718,9 @@ uint8_t ESP_PrepareMsgSend(int8_t ch_id, size_t msgSize, uint16_t msTimeout, con
   return ESP_SendATCommand(cmd, rxBuf, sizeof(rxBuf), expected, msTimeout, io);
 }
 
+/*
+ * help for shell
+ */
 static uint8_t ESP_PrintHelp(const CLS1_StdIOType *io) {
   CLS1_SendHelpStr("ESP", "ESP8200 commands\r\n", io->stdOut);
   CLS1_SendHelpStr("  help|status", "Print help or status information\r\n", io->stdOut);
@@ -639,6 +733,9 @@ static uint8_t ESP_PrintHelp(const CLS1_StdIOType *io) {
   return ERR_OK;
 }
 
+/*
+ * status for shell
+ */
 static uint8_t ESP_PrintStatus(const CLS1_StdIOType *io) {
   uint8_t buf[48];
 
@@ -704,6 +801,9 @@ static uint8_t ESP_PrintStatus(const CLS1_StdIOType *io) {
   return ERR_OK;
 }
 
+/*
+ * parse commands from shell
+ */
 uint8_t ESP_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_StdIOType *io) {
   uint32_t val;
   uint8_t res;

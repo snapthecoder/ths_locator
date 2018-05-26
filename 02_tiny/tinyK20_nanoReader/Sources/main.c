@@ -51,6 +51,8 @@
 #include "AS2.h"
 #include "ASerialLdd2.h"
 #include "TmDt1.h"
+#include "enableNano.h"
+#include "BitIoLdd2.h"
 #include "nano.h"
 #include "CLS1.h"
 #include "Shell.h"

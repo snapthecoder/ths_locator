@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P48M50SF0RM Rev. 1, Oct 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-09, 20:16, # CodeGen: 26
+**     Date/Time   : 2018-05-26, 12:00, # CodeGen: 37
 **     Abstract    :
 **
 **     Settings    :
@@ -312,6 +312,8 @@
 #include "AS2.h"
 #include "ASerialLdd2.h"
 #include "TmDt1.h"
+#include "enableNano.h"
+#include "BitIoLdd2.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -540,6 +542,8 @@ void PE_low_level_init(void)
 #if TmDt1_INIT_IN_STARTUP
   (void)TmDt1_Init();
 #endif
+  /* ### BitIO_LDD "BitIoLdd2" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)BitIoLdd2_Init(NULL);
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

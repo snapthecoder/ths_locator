@@ -30,6 +30,7 @@
 - \subpage BitIoLdd1
 - \subpage ASerialLdd1
 - \subpage ASerialLdd2
+- \subpage BitIoLdd2
 
 */
 

@@ -240,8 +240,8 @@ PE_DEBUGHALT();
         <Interrupt_TxD_priority v="1" />
         <Interrupt_Error v="INT_UART0_ERR" />
         <Interrupt_Error_priority v="medium priority" />
-        <Input_buffer_size v="128" />
-        <Output_buffer_size v="128" />
+        <Input_buffer_size v="1024" />
+        <Output_buffer_size v="1024" />
         <group name="Handshake">
           <boolgroup name="CTS" v="Disabled" />
           <boolgroup name="RTS" v="Disabled" />
@@ -735,8 +735,8 @@ PE_DEBUGHALT();
         <Interrupt_TxD_priority v="medium priority" />
         <Interrupt_Error v="INT_UART2_ERR" />
         <Interrupt_Error_priority v="medium priority" />
-        <Input_buffer_size v="128" />
-        <Output_buffer_size v="128" />
+        <Input_buffer_size v="1024" />
+        <Output_buffer_size v="1024" />
         <group name="Handshake">
           <boolgroup name="CTS" v="Disabled" />
           <boolgroup name="RTS" v="Disabled" />
@@ -927,6 +927,73 @@ PE_DEBUGHALT();
       </event>
       <event name="OnBreak" v="don&amp;apos;t generate code" />
       <event name="OnTxComplete" v="don&amp;apos;t generate code" />
+    </Events>
+  </Bean>
+  <Bean name="TmDt1" type="GenericTimeDate">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="TmDt1" />
+      <boolgroup name="Software RTC" v="Enabled">
+        <Tick_Time__ms_ v="10" />
+        <boolgroup name="RTOS" v="Disabled" />
+      </boolgroup>
+      <boolgroup name="Hardware RTC" v="Disabled" />
+      <group name="Set Time and Date">
+        <Software_RTC v="yes" />
+        <Internal_RTC v="yes" />
+        <External_RTC v="yes" />
+      </group>
+      <Get_Time_and_Date v="Software RTC" />
+      <group name="Init()">
+        <group name="Defaults">
+          <Time v="17:51:31" />
+          <Date v="2012-07-22" />
+        </group>
+        <Call_Init___in_startup v="yes" />
+        <Software_RTC_Initialization v="Init from Defaults" />
+      </group>
+      <group name="System">
+        <Critical_Section v="CS1" />
+        <Utility v="UTIL1" />
+        <SDK v="MCUC1" />
+        <boolgroup name="Shell" v="Disabled" />
+      </group>
+    </Properties>
+    <Methods>
+      <AddTick v="generate code" />
+      <AddTicks v="generate code" />
+      <CalculateDayOfWeek v="generate code" />
+      <SetTime v="generate code" />
+      <GetTime v="generate code" />
+      <SetDate v="generate code" />
+      <GetDate v="generate code" />
+      <SetTimeDate v="generate code" />
+      <GetTimeDate v="generate code" />
+      <SetSWTimeDate v="generate code" />
+      <GetSWTimeDate v="generate code" />
+      <SetInternalRTCTimeDate v="generate code" />
+      <GetInternalRTCTimeDate v="generate code" />
+      <SyncWithInternalRTC v="generate code" />
+      <SyncSWtimeToInternalRTCsec v="generate code" />
+      <SetExternalRTCTimeDate v="generate code" />
+      <GetExternalRTCTimeDate v="generate code" />
+      <SyncWithExternalRTC v="generate code" />
+      <UnixSecondsToTimeDateCustom v="generate code" />
+      <UnixSecondsToTimeDate v="generate code" />
+      <TimeDateToUnixSecondsCustom v="generate code" />
+      <TimeDateToUnixSeconds v="generate code" />
+      <AddDateString v="generate code" />
+      <AddTimeString v="generate code" />
+      <ParseCommand v="don&amp;apos;t generate code" />
+      <DeInit v="generate code" />
+      <Init v="generate code" />
+    </Methods>
+    <Events>
+      <Event_module_name v="Events" />
+      <event name="OnTimeSet" v="don&amp;apos;t generate code" />
+      <event name="OnTimeGet" v="don&amp;apos;t generate code" />
+      <event name="OnDateSet" v="don&amp;apos;t generate code" />
+      <event name="OnDateGet" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
 </PE_PROJECT_SETTINGS_DOCUMENTATION>

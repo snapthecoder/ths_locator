@@ -22,7 +22,7 @@
 uint8_t _headnano = 0;
 uint8_t msg[MAX_MSG_SIZE];
 uint8_t Reader_Start = 0 ;
-uint8_t gatenr = 0;
+uint8_t gatenr = 1;
 
 //Comes from serial_reader_l3.c
 //ThingMagic-mutated CRC used for messages.
@@ -39,6 +39,10 @@ uint8_t nanoStatus(void){
 	return Reader_Start;
 }
 
+uint8_t nanoSetStatus(uint8_t state){
+	Reader_Start = state;
+}
+
 /*
 ** ===================================================================
 **     Method      :  NanoInit
@@ -52,7 +56,7 @@ void NanoInit(void){
 	  nanoSetRegion(REGION_EUROPE);
 	  WAIT1_Waitms(10);
 
-	  nanoSetReadPower(20000);
+	  nanoSetReadPower(2000);
 	  WAIT1_Waitms(10);
 
 	  Reader_Start = 0;
@@ -100,6 +104,7 @@ void nanoStartReading(void){
 	uint8_t configBlob[] = {0x00, 0x00, 0x01, 0x22, 0x00, 0x00, 0x05, 0x07, 0x22, 0x10, 0x00, 0x1B, 0x03, 0xE8, 0x01, 0xFF};
 
 	sendMessage(TMR_SR_OPCODE_MULTI_PROTOCOL_TAG_OP, configBlob, sizeof(configBlob), COMMAND_TIME_OUT, 1);
+	Reader_Start = 1;
 }
 
 /*
@@ -623,7 +628,6 @@ bool nanoCheck(void)
       if ((_headnano > 0) && (_headnano == msg[1] + 7))
       {
         //We've got a complete sentence!
-
         //Erase the remainder of the array
         for (uint8_t x = _headnano ; x < MAX_MSG_SIZE ; x++)
           msg[x] = 0;
@@ -911,7 +915,7 @@ void nanoPrintStatus(const CLS1_StdIOType *io){
 	uint8_t ch_id = 1;
 
 	UTIL1_strcpy(buf, sizeof(buf), (unsigned char*)"STX");
-	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)gatenr);
+	UTIL1_strcatNum8u(buf, sizeof(buf),gatenr);
 	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)",");
 
 	uint8_t tagEPCBytes = getTagEPCBytes();
@@ -924,26 +928,22 @@ void nanoPrintStatus(const CLS1_StdIOType *io){
 
 	UTIL1_strcat(buf, sizeof(buf), (unsigned char*)"ETX\r\n\0" );
 
-	Serial_println((unsigned char*)buf);
+	Serial_print((unsigned char*)buf);
 
-	//print to network //TODO makro for enabling
+	//print to network
+	//TODO makro for enabling and params or macro for ip and port
 
-	WAIT1_Waitms(50);
-
-	uint8_t IPAddrStr[20] = "192.168.0.103";
+	uint8_t IPAddrStr[20] = "192.168.0.101";
 	uint16_t port = 8000;
-	uint16_t msTimeout = 1000;
+	uint16_t msTimeout = 50;
 
-	ESP_OpenConnection(ch_id, 1, IPAddrStr, port, msTimeout, io);
+	ESP_OpenConnection(ch_id, 1, IPAddrStr, port, 10, io);
 
-	ESP_PrepareMsgSend(ch_id, UTIL1_strlen(buf), ESP_DEFAULT_TIMEOUT_MS, io);
+	ESP_PrepareMsgSend(ch_id, UTIL1_strlen(buf), 10, io);
 
-	res = ESP_SendATCommand(buf, rxBuf, sizeof(rxBuf), "\r\nRecv 44 bytes\r\n\r\nSEND OK\r\n", ESP_DEFAULT_TIMEOUT_MS, io);
+	ESP_SendATCommand(buf, rxBuf, sizeof(rxBuf), NULL, 10, io);
 
 	//TODO reconnect if sending fails
-	//if(res != 0) openESP();
-
-	WAIT1_Waitms(50);
 }
 
 /*
@@ -990,11 +990,8 @@ static uint8_t NANO_PrintStatus(const CLS1_StdIOType *io) {
   uint8_t buf[24];
 
   CLS1_SendStatusStr("not implemented", "\r\n", io->stdOut);
-  //CLS1_SendStatusStr("ThingSpeak", "\r\n", io->stdOut);
-  //CLS1_SendStatusStr("  Baudrate", "\r\n", io->stdOut);
+  //TODO read temp, power etc. from nano
 
-  //TODO read temp from nano
-  //CLS1_SendStatusStr("  Temp", "\r\n", io->stdOut);
   return ERR_OK;
 }
 

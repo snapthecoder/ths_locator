@@ -7,7 +7,7 @@
 **     Version     : Component 02.611, Driver 01.01, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2018-04-09, 19:41, # CodeGen: 25
+**     Date/Time   : 2018-05-24, 22:50, # CodeGen: 36
 **     Abstract    :
 **         This component "AsynchroSerial" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -25,8 +25,8 @@
 **            Interrupt TxD priority                       : 1
 **            Interrupt Error                              : INT_UART0_ERR
 **            Interrupt Error priority                     : medium priority
-**            Input buffer size                            : 128
-**            Output buffer size                           : 128
+**            Input buffer size                            : 1024
+**            Output buffer size                           : 1024
 **            Handshake                                    : 
 **              CTS                                        : Disabled
 **              RTS                                        : Disabled
@@ -153,9 +153,9 @@ extern "C" {
   typedef byte AS1_TComData;           /* User type for communication. Size of this type depends on the communication data witdh */
 #endif
 
-#define AS1_INP_BUF_SIZE  0x80U        /* Length of the RX buffer */
+#define AS1_INP_BUF_SIZE  0x0400U      /* Length of the RX buffer */
 
-#define AS1_OUT_BUF_SIZE  0x80U        /* Length of the TX buffer */
+#define AS1_OUT_BUF_SIZE  0x0400U      /* Length of the TX buffer */
 
 /*
 ** ===================================================================
