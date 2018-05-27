@@ -14,8 +14,8 @@
       <file leaf-file-name="tcp_server.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tcp_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+            <state relative-caret-position="661">
+              <caret line="45" column="41" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -23,51 +23,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="log.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/log.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="http_server.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/http_server.py">
+      <file leaf-file-name="data_parser.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data_parser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="49" column="42" lean-forward="true" selection-start-line="49" selection-start-column="42" selection-end-line="49" selection-end-column="42" />
+            <state relative-caret-position="150">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
               <folding>
-                <element signature="e#18#79#0" expanded="true" />
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webinterface.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webinterface.html">
+      <file leaf-file-name="test_client.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test_client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="25" column="18" lean-forward="true" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="csv.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/csv.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="aboutPageStyle.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/aboutPageStyle.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="401" column="1" selection-start-line="401" selection-start-column="1" selection-end-line="401" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="positions.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/positions.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="225">
+              <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,32 +52,38 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML4 File" />
+        <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>run</find>
+    </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/tcp_handler.py" />
         <option value="$PROJECT_DIR$/test.txt" />
-        <option value="$PROJECT_DIR$/test_client.py" />
-        <option value="$PROJECT_DIR$/positions.txt" />
         <option value="$PROJECT_DIR$/aboutPageStyle.css" />
         <option value="$PROJECT_DIR$/webinterface.html" />
         <option value="$PROJECT_DIR$/csv.js" />
         <option value="$PROJECT_DIR$/http_server.py" />
         <option value="$PROJECT_DIR$/tcp_server.py" />
+        <option value="$PROJECT_DIR$/positions.txt" />
+        <option value="$PROJECT_DIR$/data_parser.py" />
         <option value="$PROJECT_DIR$/log.txt" />
+        <option value="$PROJECT_DIR$/test_client.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="548" />
-    <option name="y" value="37" />
-    <option name="width" value="1309" />
-    <option name="height" value="975" />
+    <option name="x" value="655" />
+    <option name="y" value="28" />
+    <option name="width" value="1202" />
+    <option name="height" value="1033" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -127,6 +108,11 @@
     <property name="DefaultHtmlFileTemplate" value="HTML4 File" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../../../08_Measure/roche_2" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -139,7 +125,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tcp_server">
+  <component name="RunManager" selected="Python.test_client">
     <configuration name="http_server" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="03_server" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -201,9 +187,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_client" />
         <item itemvalue="Python.tcp_server" />
         <item itemvalue="Python.http_server" />
-        <item itemvalue="Python.test_client" />
       </list>
     </recent_temporary>
   </component>
@@ -221,18 +207,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="548" y="37" width="1309" height="975" extended-state="0" />
+    <frame x="655" y="28" width="1202" height="1033" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49944505" visible="true" weight="0.3315508" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49217936" visible="true" weight="0.21048252" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.27857935" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.36392075" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32912722" />
-      <window_info id="Structure" order="1" sideWeight="0.5005549" side_tool="true" visible="true" weight="0.3315508" />
+      <window_info id="Structure" order="1" sideWeight="0.50782067" side_tool="true" visible="true" weight="0.21048252" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32908705" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.31536114" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3147541" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -258,7 +244,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="45" />
+      <option name="time" value="47" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -267,19 +253,22 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/positions.txt">
+    <entry file="file://$PROJECT_DIR$/tcp_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="1230">
+          <caret line="82" column="45" lean-forward="true" selection-start-line="82" selection-start-column="45" selection-end-line="82" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/http_server.py">
+    <entry file="file://$PROJECT_DIR$/tcp_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="23" column="51" lean-forward="true" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+        <state relative-caret-position="870">
+          <caret line="63" column="27" selection-start-line="63" selection-start-column="27" selection-end-line="63" selection-end-column="27" />
           <folding>
-            <element signature="e#18#79#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -326,9 +315,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="e#18#79#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -580,13 +566,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/SocketServer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="656" selection-start-line="656" selection-end-line="656" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydevd_bundle/pydevd_tracing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
@@ -601,57 +580,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_client.py">
+    <entry file="file://$PROJECT_DIR$/aboutPageStyle.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="16" />
+        <state relative-caret-position="486">
+          <caret line="401" column="1" selection-start-line="401" selection-start-column="1" selection-end-line="401" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tcp_server.py">
+    <entry file="file://$PROJECT_DIR$/webinterface.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="375">
+          <caret line="25" column="18" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/http_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="49" column="42" selection-start-line="49" selection-start-column="42" selection-end-line="49" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/SocketServer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-35">
+          <caret line="357" column="6" selection-start-line="357" selection-start-column="6" selection-end-line="357" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/log.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/http_server.py">
+    <entry file="file://$PROJECT_DIR$/positions.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tcp_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="49" column="42" lean-forward="true" selection-start-line="49" selection-start-column="42" selection-end-line="49" selection-end-column="42" />
+        <state relative-caret-position="661">
+          <caret line="45" column="41" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
           <folding>
-            <element signature="e#18#79#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webinterface.html">
+    <entry file="file://$PROJECT_DIR$/data_parser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="25" column="18" lean-forward="true" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/csv.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aboutPageStyle.css">
+    <entry file="file://$PROJECT_DIR$/test_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="401" column="1" selection-start-line="401" selection-start-column="1" selection-end-line="401" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/positions.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="225">
+          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
