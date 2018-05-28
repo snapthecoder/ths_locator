@@ -1,30 +1,45 @@
 import re
 import csv
+import os
 import time
 import threading
+import tcp_server
 
 class DataParser():
 
     def changePos(self, rssi, epc, gate):
+
         ts = time.time()
         i = 0
 
-        try:
-            r = csv.reader(open('positions.txt'))  # Here your csv file
-            lines = list(r)
+        #lock1.acquire()
 
-            for row in lines:
+        filename = "pos" + str(epc) + ".txt"
+
+        if os.path.exists(filename) != True:
+            csvfile = open(filename,"w+")
+            csvfile.write(str(epc) + "," + str(gate)+ "," + str(rssi)+ "," + str(ts))
+            csvfile.close()
+
+
+        csvfile = open(filename, "r+")
+        r = csv.reader(csvfile)
+
+        lines = list(r)
+
+        for row in lines:
+            try:
                 if row[0] == str(epc):
                     row[3] = ts
                     lines[i][1] = str(gate)
                     lines[i][2] = str(rssi)
                     # TODO read RSSI for direction rec.
-                i = i+1
+                    i = i+1
+            except IndexError, e:
+                print "IndexError"
 
-            writer = csv.writer(open('positions.txt', 'w'))
-            writer.writerows(lines)
-        except csv.Error, e:
-            print "CSV error: %s" % e
+        writer = csv.writer(open(filename, 'w'))
+        writer.writerows(lines)
 
     def parse(self, message):
         # system of a message
@@ -40,6 +55,7 @@ class DataParser():
 
         values = [int(s) for s in re.findall(r"[-+]?\d*\.\d+|[-+]?\d+",message)]
 
+
         self.changePos(values[2],values[1], values[0])
 
         with open("log.txt", "a") as myfile:
@@ -47,3 +63,5 @@ class DataParser():
             myfile.write(str(values[1])+",")
             myfile.write(str(values[2])+",")
             myfile.write(time.strftime('%X %x %Z') + "\n")
+
+
