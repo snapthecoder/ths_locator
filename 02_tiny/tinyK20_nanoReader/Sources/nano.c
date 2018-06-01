@@ -22,7 +22,7 @@
 uint8_t _headnano = 0;
 uint8_t msg[MAX_MSG_SIZE];
 uint8_t Reader_Start = 0 ;
-uint8_t gatenr = 1;
+uint8_t gatenr = 2;
 
 //Comes from serial_reader_l3.c
 //ThingMagic-mutated CRC used for messages.
@@ -41,6 +41,10 @@ uint8_t nanoStatus(void){
 
 uint8_t nanoSetStatus(uint8_t state){
 	Reader_Start = state;
+}
+
+void nanoSetGateNr(uint8_t gate){
+	gatenr = gate;
 }
 
 /*
@@ -933,7 +937,7 @@ void nanoPrintStatus(const CLS1_StdIOType *io){
 	//print to network
 	//TODO makro for enabling and params or macro for ip and port
 
-	uint8_t IPAddrStr[20] = "192.168.0.101";
+	uint8_t IPAddrStr[20] = "192.168.0.102";
 	uint16_t port = 8000;
 	uint16_t msTimeout = 50;
 
@@ -1018,7 +1022,18 @@ uint8_t NANO_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_St
 	Reader_Start = 0;
 	res = ERR_OK;
 	CLS1_SendStr("Reader Stopped!\r\n", io->stdOut);
-  }
+  } else if (UTIL1_strncmp((char*)cmd, "Nano SetGate ", sizeof("Nano SetGate ")-1)==0) {
+	  p = cmd+sizeof("Nano SetGate");
+	  if (UTIL1_xatoi(&p, &val)==ERR_OK && val >=0 && val<=100){
+		  (void)nanoSetGateNr(val);
+		  *handled = TRUE;
+	       CLS1_SendStr("GateNr Set!\r\n", io->stdOut);
+	  } else {
+	      CLS1_SendStr((unsigned char*)"Wrong argument\r\n", io->stdErr);
+	       res = ERR_FAILED;
+	  }
+	}
+
   return res;
 }
 

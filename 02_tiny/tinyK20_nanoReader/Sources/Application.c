@@ -49,7 +49,7 @@ void openESP(const CLS1_StdIOType *io){
 	uint8_t pwd[10];
 
 	//TODO use macros or params
-	uint8_t IPAddrStr[20] = "192.168.0.101";
+	uint8_t IPAddrStr[20] = "192.168.0.102";
 	uint16_t port = 8000;
 	uint16_t msTimeout = 1000;
 
@@ -105,6 +105,8 @@ void APP_Start(void) {
 	  WAIT1_Waitms(100);
 
 	  openESP(io);
+
+	  nanoStartReading();
 
 	  for(;;){
 
