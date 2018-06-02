@@ -33,7 +33,7 @@ class ClientThread(threading.Thread):
 
 if __name__ == "__main__":
 
-    host = "192.168.0.101"
+    host = "192.168.0.102"
     port = 8000
 
     try:
